@@ -4,7 +4,13 @@
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
 */
-
+/* src/styles/main.css */
+@font-face {
+  font-family: 'Anton';
+  src: url('/src/fonts/Anton-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 *,
 ::before,
 ::after {
@@ -501,7 +507,87 @@ video {
   --tw-contain-paint:  ;
   --tw-contain-style:  ;
 }
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.right-5 {
+  right: 1.25rem;
+}
+.top-2 {
+  top: 0.5rem;
+}
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+.flex {
+  display: flex;
+}
+.h-500 {
+  height: 500px;
+}
+.h-full {
+  height: 100%;
+}
+.w-3\/5 {
+  width: 60%;
+}
+.w-full {
+  width: 100%;
+}
+.flex-col {
+  flex-direction: column;
+}
+.items-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+.rounded-md {
+  border-radius: 0.375rem;
+}
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
 .bg-gray-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+}
+.bg-red-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(252 165 165 / var(--tw-bg-opacity));
+}
+.bg-header-image {
+  background-image: url('/src/img/lampos-aritonang-24gR_9lCdes-unsplash.jpg');
+}
+.bg-cover {
+  background-size: cover;
+}
+.bg-center {
+  background-position: center;
+}
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.p-2 {
+  padding: 0.5rem;
+}
+.p-4 {
+  padding: 1rem;
+}
+.font-anton {
+  font-family: Anton, sans-serif;
+}
+.text-primary-color {
+  --tw-text-opacity: 1;
+  color: rgb(255 209 91 / var(--tw-text-opacity));
+}
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }

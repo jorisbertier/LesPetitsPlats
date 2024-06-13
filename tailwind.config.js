@@ -5,7 +5,26 @@ module.exports = {
     "./src/**/*.{html,js}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        anton: ['Anton', 'sans-serif'],
+      },
+      width: {
+        '60%': '60%', // 60%
+        '50px': '50px', // 576px
+        '160': '40rem', // 640px
+        '192': '48rem', // 768px
+      },
+      backgroundImage: {
+        'header-image': "url('/src/img/lampos-aritonang-24gR_9lCdes-unsplash.jpg')",
+      },
+      height: {
+        '500': '500px',
+      },
+      colors: {
+        'primary-color': '#FFD15B',
+      },
+    },
   },
   plugins: [],
 }
