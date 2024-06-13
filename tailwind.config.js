@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       fontFamily: {
         anton: ['Anton', 'sans-serif'],
+        manrope: ['Manrope', 'sans-serif']
       },
       width: {
         '60%': '60%', // 60%
@@ -23,7 +24,12 @@ module.exports = {
       },
       colors: {
         'primary-color': '#FFD15B',
+        'secondary-color': '#7A7A7A'
       },
+      backgroundColor: {
+        'primary-color': '#FFD15B',
+        'secondary-color': '#7A7A7A'
+      }
     },
   },
   plugins: [],
