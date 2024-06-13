@@ -1,4 +1,6 @@
-// Get datas recipes
+import { Recipe } from "../models/Recipe.js";
+import { RecipeCard } from "../templates/RecipeCard.js"
+
 async function getRecipes() {
 
     let recipes = [];
@@ -20,4 +22,15 @@ async function getRecipes() {
     })
 }
 
+async function displayRecipes() {
+    const { recipes } = await getRecipes()
+
+    recipes.forEach((recipe) => {
+        let recipeCard = new RecipeCard(recipe)
+        recipeCard.createTemplate()
+    })
+
+}
+
 getRecipes()
+displayRecipes()
