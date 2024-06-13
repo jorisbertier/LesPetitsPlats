@@ -4,13 +4,7 @@
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
 */
-/* src/styles/main.css */
-@font-face {
-  font-family: 'Anton';
-  src: url('/src/fonts/Anton-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
+
 *,
 ::before,
 ::after {
@@ -519,8 +513,29 @@ video {
 .top-2 {
   top: 0.5rem;
 }
+.left-0 {
+  left: 0px;
+}
+.top-0 {
+  top: 0px;
+}
+.left-4 {
+  left: 1rem;
+}
+.top-4 {
+  top: 1rem;
+}
+.top-10 {
+  top: 2.5rem;
+}
 .mb-1 {
   margin-bottom: 0.25rem;
+}
+.mt-2 {
+  margin-top: 0.5rem;
+}
+.mt-5 {
+  margin-top: 1.25rem;
 }
 .flex {
   display: flex;
@@ -531,11 +546,44 @@ video {
 .h-full {
   height: 100%;
 }
+.h-14 {
+  height: 3.5rem;
+}
+.h-24 {
+  height: 6rem;
+}
+.h-40 {
+  height: 10rem;
+}
 .w-3\/5 {
   width: 60%;
 }
 .w-full {
   width: 100%;
+}
+.w-2\/4 {
+  width: 50%;
+}
+.w-6 {
+  width: 1.5rem;
+}
+.w-60 {
+  width: 15rem;
+}
+.w-192 {
+  width: 48rem;
+}
+.w-4\/5 {
+  width: 80%;
+}
+.w-screen {
+  width: 100vw;
+}
+.w-9 {
+  width: 2.25rem;
+}
+.w-9\/12 {
+  width: 75%;
 }
 .flex-col {
   flex-direction: column;
@@ -561,6 +609,10 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(252 165 165 / var(--tw-bg-opacity));
 }
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
 .bg-header-image {
   background-image: url('/src/img/lampos-aritonang-24gR_9lCdes-unsplash.jpg');
 }
@@ -580,8 +632,53 @@ video {
 .p-4 {
   padding: 1rem;
 }
+.text-center {
+  text-align: center;
+}
 .font-anton {
   font-family: Anton, sans-serif;
+}
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+}
+.text-sm\/6 {
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+.text-5xl\/6 {
+  font-size: 3rem;
+  line-height: 1.5rem;
+}
+.text-5xl\/10 {
+  font-size: 3rem;
+  line-height: 2.5rem;
+}
+.text-5xl\/3 {
+  font-size: 3rem;
+  line-height: .75rem;
+}
+.uppercase {
+  text-transform: uppercase;
+}
+.leading-5 {
+  line-height: 1.25rem;
+}
+.leading-10 {
+  line-height: 2.5rem;
+}
+.leading-loose {
+  line-height: 2;
+}
+.leading-tight {
+  line-height: 1.25;
+}
+.leading-snug {
+  line-height: 1.375;
 }
 .text-primary-color {
   --tw-text-opacity: 1;
