@@ -8,11 +8,24 @@ class RecipeCard {
         const {id,image, name, servings, ingredients, time, description, appliance, ustensils} = this.data
 
         const template = document.querySelector('.wrapper__recipes');
+
+        function formatTime(time) {
+            if(time > 60) {
+                let hours = Math.floor(time / 60)
+                let minutes = time % 60;
+                return `${hours}h ${minutes} min`
+            } else {
+                return `${time} min`
+            }
+        }
+
+        const formattedTime = formatTime(time)
+
         const content = `
         <article class="bg-white rounded-3xl shadow-lg mb-5 w-96 h-650">
                 <div class="relative">
                     <img class="w-full rounded-t-3xl h-64 object-cover"src="/src/img/lampos-aritonang-24gR_9lCdes-unsplash.jpg">
-                    <div class="absolute top-4 right-4 bg-primary-color w-20 p-2 rounded-xl text-center">${time} min</div>
+                    <div class="absolute top-4 right-4 bg-primary-color w-20 p-2 rounded-xl text-center">${formattedTime}</div>
                 </div>
                 <div class="p-6 mt-3">
                     <h3 class="text-black font-anton uppercase text-base mb-6">${name}</h3>
