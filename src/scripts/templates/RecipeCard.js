@@ -42,11 +42,12 @@ class RecipeCard {
 
         const allIngredients = getIngredients(ingredients)
 
-        const content = `
+        const card = document.createElement('article');
+        card.className = 'bg-white rounded-3xl shadow-lg mb-5 w-96 h-700';
+        card.innerHTML = `
         <a href="#">
-            <article class="bg-white rounded-3xl shadow-lg mb-5 w-96 h-700">
                     <div class="relative">
-                        <img class="w-full rounded-t-3xl h-64 object-cover"src="/src/img/lampos-aritonang-24gR_9lCdes-unsplash.jpg">
+                        <img class="w-full rounded-t-3xl h-64 object-cover"src="/src/img/recipes/${image}">
                         <div class="absolute top-4 right-4 bg-primary-color w-20 p-2 rounded-xl text-center">${formattedTime}</div>
                     </div>
                     <div class="p-6 mt-3">
@@ -58,12 +59,11 @@ class RecipeCard {
                     <div class="grid gap-3 grid-cols-2 pl-6 mt-0">
                         ${allIngredients}
                     </div>
-                    
-                </article>
+
             </a>
         `
-        template.innerHTML += content
-        return content
+        
+        return card;
     }
 }
 
