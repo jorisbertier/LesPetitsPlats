@@ -1,5 +1,5 @@
 // Get datas recipes
-async function getRecipes() {
+export async function getRecipes() {
 
     let recipes = [];
 

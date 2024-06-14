@@ -21,7 +21,7 @@ module.exports = {
       },
       height: {
         '500': '500px',
-        '650': '650px',
+        '700': '700px',
       },
       colors: {
         'primary-color': '#FFD15B',
