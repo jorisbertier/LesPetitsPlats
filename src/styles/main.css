@@ -639,6 +639,9 @@ video {
 .w-full {
   width: 100%;
 }
+.cursor-pointer {
+  cursor: pointer;
+}
 .grid-flow-col {
   grid-auto-flow: column;
 }

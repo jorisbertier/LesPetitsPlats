@@ -10,6 +10,12 @@ removeSearch.addEventListener('click', ()=> {
     console.log('delete')
 })
 
+function searchByTitle(recipes, query) {
+    query = query.toLowerCase()
+    console.log(recipes.filter(recipe => recipe.name.toLowerCase().includes(query)))
+    return recipes.filter(recipe => recipe.name.toLowerCase().includes(query))
+}  
+
 async function displayRecipes() {
     const { recipes } = await getRecipes()
 
@@ -23,8 +29,6 @@ async function displayRecipes() {
 
 }
 
-
-
 function renderRecipes(recipes) {
     let wrapperRecipes = document.querySelector('.wrapper__recipes')
 
@@ -34,7 +38,6 @@ function renderRecipes(recipes) {
         let recipeCard = new RecipeCard(recipe)
         let cardElement = recipeCard.createTemplate()
         wrapperRecipes.appendChild(cardElement)
-
     })
 
 }
