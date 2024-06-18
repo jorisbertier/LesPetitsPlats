@@ -12,8 +12,19 @@ removeSearch.addEventListener('click', ()=> {
 
 function searchByTitle(recipes, query) {
     query = query.toLowerCase()
-    console.log(recipes.filter(recipe => recipe.name.toLowerCase().includes(query)))
-    return recipes.filter(recipe => recipe.name.toLowerCase().includes(query))
+    // console.log(recipes.filter(recipe => recipe.description.toLowerCase().includes(query)))
+    // return recipes.filter(recipe => recipe.description.toLowerCase().includes(query))
+    // console.log(recipes.filter(recipe => recipe.name.toLowerCase().includes(query)))
+    // return recipes.filter(recipe => recipe.name.toLowerCase().includes(query))
+    console.log(recipes.filter(recipe => recipe.ingredients.some( ingredient =>
+        ingredient.ingredient.toLowerCase().includes(query)
+    )))
+    return recipes.filter(recipe => recipe.ingredients.some( ingredient =>ingredient.ingredient.toLowerCase().includes(query)))
+
+
+    
+    // Displaying the filtered recipes
+
 }  
 
 async function displayRecipes() {
