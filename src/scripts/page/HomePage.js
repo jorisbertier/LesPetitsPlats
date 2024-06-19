@@ -11,20 +11,23 @@ removeSearch.addEventListener('click', ()=> {
 })
 
 function searchByTitle(recipes, query) {
+    // Convert query to lower case
     query = query.toLowerCase()
-    // console.log(recipes.filter(recipe => recipe.description.toLowerCase().includes(query)))
-    // return recipes.filter(recipe => recipe.description.toLowerCase().includes(query))
-    // console.log(recipes.filter(recipe => recipe.name.toLowerCase().includes(query)))
-    // return recipes.filter(recipe => recipe.name.toLowerCase().includes(query))
-    console.log(recipes.filter(recipe => recipe.ingredients.some( ingredient =>
-        ingredient.ingredient.toLowerCase().includes(query)
-    )))
-    return recipes.filter(recipe => recipe.ingredients.some( ingredient =>ingredient.ingredient.toLowerCase().includes(query)))
 
+    //Filter by Name || Description || Ingredient
+    let filteredByIngredient = recipes.filter(recipe => recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(query)));
+    let filteredByDescription = recipes.filter(recipe => recipe.description.toLowerCase().includes(query));
+    let filteredByName = recipes.filter(recipe => recipe.name.toLowerCase().includes(query));
 
-    
-    // Displaying the filtered recipes
+    let allRecipes = [
+        ...filteredByIngredient,
+        ...filteredByDescription,
+        ...filteredByName
+    ];
+    //Delete duplicate
+    allRecipes = [... new Set(allRecipes)]
 
+    return allRecipes
 }  
 
 async function displayRecipes() {
