@@ -14,7 +14,7 @@ export async function getRecipes() {
     } catch(error) {
         console.log('Error getting datas recipes', error)
     }
-    console.log(recipes)
+    // console.log(recipes)
     return ({
         recipes: [...recipes]
     })

@@ -34,11 +34,20 @@
         <section class="mt-5 mb-10 w-4/5 m-auto flex justify-between items-center">
             <div class="flex gap-10">
                 <div class="overflow-hidden h-96 flex flex-col">
-                    <button class="bg-white p-4 rounded-md w-40 flex justify-between items-center">Ingrédients <i class="fa-solid fa-chevron-down"></i></button>
+                    <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center">Ingrédients <i class="fa-solid fa-chevron-down"></i></button>
                     <!-- <div class="bg-white p-4 w-40 flex justify-between items-center all__ingredients"></div> -->
-                     <div class="relative ingredients w-12">
-                        <input type="text" class="w-full" placeholder="Search ingredients...">
-                        <div class="absolute top-2 left-2">X</div>
+                     <div class="relative bg-red-50 ingredients w-60 p-4 flex flex-col justify-center">
+                        <div>
+                            <input type="text" class="w-4/5 h-10 p-3 search__input" placeholder="Search..">
+                            <div class="absolute top-6 right-20">X</div>
+    
+                            <div class="absolute top-6 right-12 bg-red-400 search__button">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </div>
+                        </div>
+                        <div class="flex flex-col">
+                            <div class="results w-full flex flex-col"></div>
+                        </div>
                      </div>
                 </div>
                 
