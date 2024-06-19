@@ -1,9 +1,11 @@
 import { RecipeCard } from "../templates/RecipeCard.js"
 import { getRecipes } from "../api/api.js";
 
+//Select DOM element
 let inputSearch = document.getElementById('recipe')
 let search = document.querySelector('.search')
 let removeSearch = document.querySelector('.remove__result')
+let messageSearchError = document.querySelector('.search_error')
 
 removeSearch.addEventListener('click', ()=> {
     inputSearch.value = ""
@@ -15,19 +17,26 @@ function searchByTitle(recipes, query) {
     query = query.toLowerCase()
 
     //Filter by Name || Description || Ingredient
-    let filteredByIngredient = recipes.filter(recipe => recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(query)));
-    let filteredByDescription = recipes.filter(recipe => recipe.description.toLowerCase().includes(query));
-    let filteredByName = recipes.filter(recipe => recipe.name.toLowerCase().includes(query));
+    if(query.length >= 3) {
+        let filteredByIngredient = recipes.filter(recipe => recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(query)));
+        let filteredByDescription = recipes.filter(recipe => recipe.description.toLowerCase().includes(query));
+        let filteredByName = recipes.filter(recipe => recipe.name.toLowerCase().includes(query));
+        let allRecipes = [
+            ...filteredByIngredient,
+            ...filteredByDescription,
+            ...filteredByName
+        ];
+        messageSearchError.innerHTML = ""
+        //Delete duplicate
+        allRecipes = [... new Set(allRecipes)]
+        return allRecipes
+    } else {
+        messageSearchError.innerHTML = "Vous devez entrer au minimum 3 caractères pour faire la recherche"
+        let allRecipes = []
+        return allRecipes
+    }
 
-    let allRecipes = [
-        ...filteredByIngredient,
-        ...filteredByDescription,
-        ...filteredByName
-    ];
-    //Delete duplicate
-    allRecipes = [... new Set(allRecipes)]
 
-    return allRecipes
 }  
 
 async function displayRecipes() {
