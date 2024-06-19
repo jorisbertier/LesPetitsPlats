@@ -68,15 +68,3 @@ class RecipeCard {
 }
 
 export { RecipeCard }
-
-                        // <div class="grid gap-4 grid-cols-2 grid-flow-col wrapper__recipe--ingredient">
-                        //     <div class="h-16">
-                        //         <h5 class="text-sm text-black">Lait de Coco</h5>
-                        //         <p class="text-secondary-color uppercase text-xs">400ml</p>
-                        //     </div>
-                        //     <div class="bg-red-500">
-                        //         <h5 class="text-sm text-black bg-red-500">Lait de Coco</h5>
-                        //         <p class="text-secondary-color uppercase text-xs">400ml</p>
-                        //     </div>
-
-                        // </div>
