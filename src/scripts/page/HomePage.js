@@ -6,6 +6,38 @@ import { searchByTitle, removeSearch } from "../functions/search.js";
 let inputSearch = document.getElementById('recipe')
 let search = document.querySelector('.search')
 
+
+//get all ingrdedients
+async function getAllIngredients() {
+
+    const { recipes } = await getRecipes()
+    let allIngredients = []
+
+    recipes.forEach(ingredient => {
+        ingredient.ingredients.forEach(ingredient => {
+            allIngredients.push(ingredient.ingredient)
+        })
+    });
+
+    allIngredients = [...new Set(allIngredients)]
+    return allIngredients
+}
+
+async function renderIngredients() {
+    const ingredients = await getAllIngredients()
+    let inputIngredients = document.querySelector('.ingredients')
+
+    ingredients.forEach(ingredient => {
+        console.log(ingredient)
+        let div = document.createElement('div')
+        div.innerHTML = `${ingredient}`
+        div.classList.add('bg-white', 'p-4', 'w-40', 'flex', 'justify-between', 'items-center')
+        inputIngredients.insertAdjacentElement('afterend', div);
+        inputIngredients = div;
+    })
+}
+renderIngredients()
+
 removeSearch('recipe', '.remove__result')
 
 async function displayRecipes() {

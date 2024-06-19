@@ -546,6 +546,9 @@ video {
 .right-20 {
   right: 5rem;
 }
+.left-2 {
+  left: 0.5rem;
+}
 .m-auto {
   margin: auto;
 }
@@ -609,6 +612,18 @@ video {
 .h-full {
   height: 100%;
 }
+.h-9 {
+  height: 2.25rem;
+}
+.h-96 {
+  height: 24rem;
+}
+.h-10 {
+  height: 2.5rem;
+}
+.h-48 {
+  height: 12rem;
+}
 .w-11 {
   width: 2.75rem;
 }
@@ -638,6 +653,9 @@ video {
 }
 .w-full {
   width: 100%;
+}
+.w-12 {
+  width: 3rem;
 }
 .cursor-pointer {
   cursor: pointer;
@@ -677,6 +695,14 @@ video {
 }
 .gap-5 {
   gap: 1.25rem;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .rounded-3xl {
   border-radius: 1.5rem;
