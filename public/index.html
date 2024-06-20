@@ -33,24 +33,29 @@
     <main class="bg-zinc-300 pt-5">
         <section class="mt-5 mb-10 w-4/5 m-auto flex justify-between items-center">
             <div class="flex gap-10">
-                <div class="overflow-hidden h-96 flex flex-col">
-                    <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center">Ingrédients <i class="fa-solid fa-chevron-down"></i></button>
-                    <!-- <div class="bg-white p-4 w-40 flex justify-between items-center all__ingredients"></div> -->
-                     <div class="relative bg-red-50 ingredients w-60 p-4 flex flex-col justify-center">
-                        <div>
-                            <input type="text" class="w-4/5 h-10 p-3 search__input" placeholder="Search..">
-                            <div class="absolute top-6 right-20">X</div>
-    
-                            <div class="absolute top-6 right-12 bg-red-400 search__button">
-                                <i class="fa-solid fa-magnifying-glass"></i>
+                <div class="flex flex-col selected__ingredient">
+                    <div class="overflow-hidden h-96 flex flex-col">
+                        <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center">Ingrédients <i class="fa-solid fa-chevron-down"></i></button>
+                        <!-- <div class="bg-white p-4 w-40 flex justify-between items-center all__ingredients"></div> -->
+                        <div class="relative bg-red-50 ingredients w-60 p-4 flex flex-col justify-center">
+                            <div>
+                                <input type="text" class="w-4/5 h-10 p-3 search__input" placeholder="Search..">
+                                <div class="absolute top-6 right-20">X</div>
+        
+                                <div class="absolute top-6 right-12 bg-red-400 search__button">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </div>
+                            </div>
+                            <div class="flex flex-col">
+                                <div class="results w-full flex flex-col"></div>
                             </div>
                         </div>
-                        <div class="flex flex-col">
-                            <div class="results w-full flex flex-col"></div>
                         </div>
-                     </div>
+                    <!-- <div class="flex justify-center relative">
+                        <div class="bg-primary-color p-4 ingredients mt-4 w-3/4 rounded-xl">Lait de coco</div>
+                        <i class="fa-solid fa-xmark absolute text-xl top-9 right-14"></i>
+                    </div> -->
                 </div>
-                
                 <button class="bg-white p-4 rounded-md w-40 flex justify-between items-center">Appareils <i class="fa-solid fa-chevron-down"></i></button>
                 <button class="bg-white p-4 rounded-md w-40 flex justify-between items-center">Ustensiles <i class="fa-solid fa-chevron-down"></i></button>
             </div>

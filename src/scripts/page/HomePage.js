@@ -60,15 +60,35 @@ async function getAllIngredients() {
 
 function renderIngredients(ingredients) {
     let inputIngredients = document.querySelector('.results')
+    let wrapperIngredients = document.querySelector('.selected__ingredient')
 
     inputIngredients.innerHTML = ""
 
     ingredients.forEach(ingredient => {
         let div = document.createElement('div')
         div.innerHTML = `${ingredient}`
-        div.classList.add('bg-white', 'p-4', 'w-60', 'flex', 'justify-between', 'items-center')
+        div.classList.add('bg-white', 'p-4', 'w-60', 'flex', 'justify-between', 'items-center', 'cursor-pointer')
         inputIngredients.appendChild(div);
 
+        div.addEventListener('click', ()=> {
+            let divSelectedIngredient = document.createElement('div')
+            divSelectedIngredient.innerHTML = `
+                    <div class="flex justify-center relative">
+                        <div class="bg-primary-color p-4 ingredients mt-4 w-3/4 rounded-xl">${ingredient}</div>
+                        <div class="delete__ingredient">
+                        <i class="fa-solid fa-xmark absolute text-xl top-9 right-14"></i>
+                        </div>
+                    </div>
+            `
+            wrapperIngredients.appendChild(divSelectedIngredient)
+
+            // selectionné element en lui même
+            let deleteButton  = divSelectedIngredient.querySelector('.delete__ingredient')
+            deleteButton .addEventListener('click', ()=> {
+                wrapperIngredients.removeChild(divSelectedIngredient)
+                console.log('delete')
+            })
+        })
     })
 }
 const ingredients = await getAllIngredients()
