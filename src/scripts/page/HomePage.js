@@ -54,13 +54,13 @@ async function getAllIngredients() {
     });
 
     allIngredients = [...new Set(allIngredients)]
-    console.log(allIngredients)
+    // console.log(allIngredients)
     return allIngredients
 }
 
 function renderIngredients(ingredients) {
     let inputIngredients = document.querySelector('.results')
-    let wrapperIngredients = document.querySelector('.selected__ingredient')
+    
 
     inputIngredients.innerHTML = ""
 
@@ -71,7 +71,15 @@ function renderIngredients(ingredients) {
         inputIngredients.appendChild(div);
 
         div.addEventListener('click', ()=> {
-            let divSelectedIngredient = document.createElement('div')
+            selectedIngredients(ingredient)
+        })
+    })
+}
+
+function selectedIngredients(ingredient) {
+    let wrapperIngredients = document.querySelector('.selected__ingredient')
+
+    let divSelectedIngredient = document.createElement('div')
             divSelectedIngredient.innerHTML = `
                     <div class="flex justify-center relative">
                         <div class="bg-primary-color p-4 ingredients mt-4 w-3/4 rounded-xl">${ingredient}</div>
@@ -82,14 +90,18 @@ function renderIngredients(ingredients) {
             `
             wrapperIngredients.appendChild(divSelectedIngredient)
 
+            //test
+            // let ingredients = []
+            // ingredients = ingredients.filter(ing => ing !== ingredient)
+            // renderIngredients(ingredients.filter(ing => ing.toLowerCase().includes(inputSearchIngredients.value.toLowerCase())))
+
+            //test
             // selectionné element en lui même
             let deleteButton  = divSelectedIngredient.querySelector('.delete__ingredient')
             deleteButton .addEventListener('click', ()=> {
                 wrapperIngredients.removeChild(divSelectedIngredient)
                 console.log('delete')
             })
-        })
-    })
 }
 const ingredients = await getAllIngredients()
 
