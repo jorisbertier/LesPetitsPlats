@@ -1,13 +1,13 @@
 import { RecipeCard } from "../templates/RecipeCard.js"
 import { getRecipes } from "../api/api.js";
 import { searchByTitle, removeSearch } from "../functions/search.js";
+import { searchByIngredient } from "../functions/searchByIngredient.js";
 
 //Select DOM element
 let inputSearch = document.getElementById('recipe')
 let search = document.querySelector('.search')
 
 removeSearch('recipe', '.remove__result')
-
 
 //Display
 async function displayRecipes() {
@@ -38,87 +38,95 @@ function renderRecipes(recipes) {
 displayRecipes()
 
 
-// TEST INGREDIENTS
-let inputSearchIngredients = document.querySelector('.search__input')
-let searchButtonIngredients = document.querySelector('.search__button')
-//get all ingrdedients
+// All functions Ingredients
+let inputSearchIngredients = document.querySelector('.search__input');
+
+// Initialize array
+let ingredients = [];
+
+// Get all ingredients
 async function getAllIngredients() {
+    const { recipes } = await getRecipes();
+    let allIngredients = [];
 
-    const { recipes } = await getRecipes()
-    let allIngredients = []
-
-    recipes.forEach(ingredient => {
-        ingredient.ingredients.forEach(ingredient => {
-            allIngredients.push(ingredient.ingredient.trim().toLowerCase())
-        })
+    recipes.forEach(recipe => {
+        recipe.ingredients.forEach(ingredient => {
+            allIngredients.push(ingredient.ingredient.trim().toLowerCase());
+        });
     });
 
-    allIngredients = [...new Set(allIngredients)]
-    // console.log(allIngredients)
-    return allIngredients
+    allIngredients = [...new Set(allIngredients)];
+    return allIngredients;
 }
 
-function renderIngredients(ingredients) {
-    let inputIngredients = document.querySelector('.results')
-    
+async function renderIngredients(ingredients) {
+    let inputIngredients = document.querySelector('.results');
 
-    inputIngredients.innerHTML = ""
+    inputIngredients.innerHTML = "";
 
     ingredients.forEach(ingredient => {
-        let div = document.createElement('div')
-        div.innerHTML = `${ingredient}`
-        div.classList.add('bg-white', 'p-4', 'w-60', 'flex', 'justify-between', 'items-center', 'cursor-pointer')
+        let div = document.createElement('div');
+        div.innerHTML = `${ingredient}`;
+        div.classList.add('bg-white', 'p-4', 'w-60', 'flex', 'justify-between', 'items-center', 'cursor-pointer');
         inputIngredients.appendChild(div);
 
-        div.addEventListener('click', ()=> {
-            selectedIngredients(ingredient)
-        })
-    })
+        div.addEventListener('click', () => {
+            selectIngredient(ingredient);
+        });
+    });
 }
 
-function selectedIngredients(ingredient) {
-    let wrapperIngredients = document.querySelector('.selected__ingredient')
+function selectIngredient(ingredient) {
+    let wrapperIngredients = document.querySelector('.selected__ingredient');
 
-    let divSelectedIngredient = document.createElement('div')
-            divSelectedIngredient.innerHTML = `
-                    <div class="flex justify-center relative">
-                        <div class="bg-primary-color p-4 ingredients mt-4 w-3/4 rounded-xl">${ingredient}</div>
-                        <div class="delete__ingredient">
-                        <i class="fa-solid fa-xmark absolute text-xl top-9 right-14"></i>
-                        </div>
-                    </div>
-            `
-            wrapperIngredients.appendChild(divSelectedIngredient)
+    let divSelectedIngredient = document.createElement('div');
+    divSelectedIngredient.innerHTML = `
+        <div class="flex justify-center relative">
+            <div class="bg-primary-color p-4 ingredients mt-4 w-3/4 rounded-xl">${ingredient}</div>
+            <div class="delete__ingredient">
+                <i class="fa-solid fa-xmark absolute text-xl top-9 right-14"></i>
+            </div>
+        </div>
+    `;
+    wrapperIngredients.appendChild(divSelectedIngredient);
 
-            //test
-            // let ingredients = []
-            // ingredients = ingredients.filter(ing => ing !== ingredient)
-            // renderIngredients(ingredients.filter(ing => ing.toLowerCase().includes(inputSearchIngredients.value.toLowerCase())))
+    ingredients = ingredients.filter(ing => ing != ingredient);
+    renderIngredients(ingredients.filter(ing => ing.toLowerCase().includes(inputSearchIngredients.value.toLowerCase())));
 
-            //test
-            // selectionné element en lui même
-            let deleteButton  = divSelectedIngredient.querySelector('.delete__ingredient')
-            deleteButton .addEventListener('click', ()=> {
-                wrapperIngredients.removeChild(divSelectedIngredient)
-                console.log('delete')
-            })
+    // Update displayed recipes based on selected ingredient
+    updateRecipesByIngredient(ingredient);
+
+    let deleteButton = divSelectedIngredient.querySelector('.delete__ingredient');
+    deleteButton.addEventListener('click', () => {
+        wrapperIngredients.removeChild(divSelectedIngredient);
+        ingredients.push(ingredient);
+        renderIngredients(ingredients.filter(ing => ing.toLowerCase().includes(inputSearchIngredients.value.toLowerCase())));
+        // Reset displayed recipes when an ingredient is removed
+        displayRecipes();
+    });
 }
-const ingredients = await getAllIngredients()
 
-renderIngredients(ingredients)
+async function updateRecipesByIngredient(selectedIngredient) {
+    const { recipes } = await getRecipes();
+    const filteredRecipes = recipes.filter(recipe => 
+        recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase() === selectedIngredient.toLowerCase())
+    );
+    renderRecipes(filteredRecipes);
+}
 
 async function displayIngredients() {
+    ingredients = await getAllIngredients();
 
-    const ingredients = await getAllIngredients()
+    inputSearchIngredients.addEventListener('input', () => {
+        let allIngredientsFilterByvalue = ingredients.filter(ingredient => 
+            ingredient.toLowerCase().includes(inputSearchIngredients.value.toLowerCase())
+        );
+        renderIngredients(allIngredientsFilterByvalue);
+    });
 
-    inputSearchIngredients.addEventListener('input', ()=> {
-        let allIngredientsFilterByvalue = ingredients.filter(ingredient => ingredient.toLowerCase().includes(inputSearchIngredients.value.toLowerCase()))    
-        console.log(allIngredientsFilterByvalue)
-        renderIngredients(allIngredientsFilterByvalue)
-    })
-
+    renderIngredients(ingredients);
 }
 
-displayIngredients()
+displayIngredients();
 
 /**Fin zone de test */
