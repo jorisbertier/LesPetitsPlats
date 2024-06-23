@@ -1,7 +1,7 @@
 import { RecipeCard } from "../templates/RecipeCard.js"
 import { getRecipes } from "../api/api.js";
 import { searchByTitle, removeSearch } from "../functions/search.js";
-import { searchByIngredient } from "../functions/searchByIngredient.js";
+// import { searchByIngredient } from "../functions/searchByIngredient.js";
 
 //Select DOM element
 let inputSearch = document.getElementById('recipe')
@@ -41,44 +41,51 @@ displayRecipes()
 // All functions Ingredients
 let inputSearchIngredients = document.querySelector('.search__input');
 
-// Initialize array
+// Initialize arrays to store all ingredients and selected ingredients
 let ingredients = [];
+let selectedIngredients = [];
 
-// Get all ingredients
+// Function to get all ingredients without duplicate from recipes
 async function getAllIngredients() {
     const { recipes } = await getRecipes();
     let allIngredients = [];
 
+    // Extract ingredients from each recipe
     recipes.forEach(recipe => {
         recipe.ingredients.forEach(ingredient => {
-            allIngredients.push(ingredient.ingredient.trim().toLowerCase());
+            allIngredients.push(ingredient.ingredient.trim().toLowerCase()); // Add ingredient to the list
         });
     });
 
-    allIngredients = [...new Set(allIngredients)];
-    return allIngredients;
+    allIngredients = [...new Set(allIngredients)]; // Remove duplicate ingredients
+    return allIngredients; // Return all ingredients without duplicate
 }
 
+// Function to render ingredients suggestions
 async function renderIngredients(ingredients) {
     let inputIngredients = document.querySelector('.results');
 
     inputIngredients.innerHTML = "";
 
+    // Create and display a list of suggestions for each ingredient
     ingredients.forEach(ingredient => {
         let div = document.createElement('div');
         div.innerHTML = `${ingredient}`;
         div.classList.add('bg-white', 'p-4', 'w-60', 'flex', 'justify-between', 'items-center', 'cursor-pointer');
         inputIngredients.appendChild(div);
 
+         // Add click event listener for each ingredient
         div.addEventListener('click', () => {
             selectIngredient(ingredient);
         });
     });
 }
 
+// Function to handle(gèrer) the selection of an ingredient
 function selectIngredient(ingredient) {
     let wrapperIngredients = document.querySelector('.selected__ingredient');
 
+    // Create a div for the selected ingredient
     let divSelectedIngredient = document.createElement('div');
     divSelectedIngredient.innerHTML = `
         <div class="flex justify-center relative">
@@ -90,43 +97,66 @@ function selectIngredient(ingredient) {
     `;
     wrapperIngredients.appendChild(divSelectedIngredient);
 
+    // Add the selected ingredient to the list of selected ingredients
+    selectedIngredients.push(ingredient);
+    console.log(selectedIngredients);
+
+    // Remove the selected ingredient from the suggestions
     ingredients = ingredients.filter(ing => ing != ingredient);
     renderIngredients(ingredients.filter(ing => ing.toLowerCase().includes(inputSearchIngredients.value.toLowerCase())));
 
-    // Update displayed recipes based on selected ingredient
-    updateRecipesByIngredient(ingredient);
+    // Update displayed recipes based on selected ingredients
+    updateRecipesByIngredient();
 
+    // Add event listener to delete the selected ingredient
     let deleteButton = divSelectedIngredient.querySelector('.delete__ingredient');
     deleteButton.addEventListener('click', () => {
-        wrapperIngredients.removeChild(divSelectedIngredient);
-        ingredients.push(ingredient);
+        wrapperIngredients.removeChild(divSelectedIngredient); // Remove the ingredient from the selected list
+        ingredients.push(ingredient); // Add the ingredient back to the suggestions
+        selectedIngredients = selectedIngredients.filter(ing => ing !== ingredient); // Remove the ingredient from selected ingredients
+        console.log(selectedIngredients);
+
+        // Render the updated list of ingredient suggestions
         renderIngredients(ingredients.filter(ing => ing.toLowerCase().includes(inputSearchIngredients.value.toLowerCase())));
-        // Reset displayed recipes when an ingredient is removed
-        displayRecipes();
+
+        // Update displayed recipes based on remaining selected ingredients
+        updateRecipesByIngredient();
     });
 }
 
-async function updateRecipesByIngredient(selectedIngredient) {
+// Function to update recipes displayed based on selected ingredients
+async function updateRecipesByIngredient() {
     const { recipes } = await getRecipes();
-    const filteredRecipes = recipes.filter(recipe => 
-        recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase() === selectedIngredient.toLowerCase())
-    );
-    renderRecipes(filteredRecipes);
+
+// Filtrer les recettes pour inclure uniquement celles qui contiennent tous les ingrédients sélectionnés
+let filteredRecipes = recipes.filter(recipe => 
+    // Vérifier que chaque ingrédient sélectionné se trouve dans la liste des ingrédients de la recette
+    selectedIngredients.every(selectedIngredient => 
+        // Utiliser la méthode some pour vérifier si au moins un des ingrédients de la recette correspond à l'ingrédient sélectionné
+        recipe.ingredients.some(ingredient => 
+            // Comparer les ingrédients en minuscules pour éviter les problèmes de casse (majuscules/minuscules)
+            ingredient.ingredient.toLowerCase() === selectedIngredient.toLowerCase()
+        )
+    )
+);
+    renderRecipes(filteredRecipes); // Render the filtered recipes
 }
 
+// Function to handle ingredient search input and render suggestions
 async function displayIngredients() {
-    ingredients = await getAllIngredients();
+    ingredients = await getAllIngredients(); // Get all unique ingredients
 
+    // Add event listener to the ingredient search input
     inputSearchIngredients.addEventListener('input', () => {
-        let allIngredientsFilterByvalue = ingredients.filter(ingredient => 
+        let allIngredientsFilterByValue = ingredients.filter(ingredient => 
             ingredient.toLowerCase().includes(inputSearchIngredients.value.toLowerCase())
         );
-        renderIngredients(allIngredientsFilterByvalue);
+        renderIngredients(allIngredientsFilterByValue); // Render filtered ingredient suggestions
     });
 
-    renderIngredients(ingredients);
+    renderIngredients(ingredients); // Initial rendering of all ingredient suggestions
 }
 
-displayIngredients();
+displayIngredients(); // Initial call to display ingredient suggestions
 
 /**Fin zone de test */
