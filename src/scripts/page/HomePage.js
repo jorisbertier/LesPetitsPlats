@@ -174,7 +174,7 @@ async function getAllUstensiles() {
     recipes.forEach(recipe => {
         recipe.ustensils.forEach(ustensil => {
         //     getAllUstensiles.push(ingredient.ingredient.trim().toLowerCase()); // Add ustensils to the list
-            allUstensils.push(ustensil)
+            allUstensils.push(ustensil.trim().toLowerCase())
         });
         // console.log(recipe.ustensils)
     });
