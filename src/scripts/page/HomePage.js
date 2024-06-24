@@ -20,7 +20,7 @@ async function displayRecipes() {
         filteredRecipes = filterBySelectedIngredients(filteredRecipes, selectedIngredients)
         renderRecipes(filteredRecipes)
     })
-    
+
     search.addEventListener('click', ()=> {
         let query = inputSearch.value;
         let filteredRecipes = searchByTitle(recipes, query)
@@ -136,17 +136,10 @@ function selectIngredient(ingredient) {
 async function updateRecipesByIngredient() {
     const { recipes } = await getRecipes();
 
-    // Filtrer les recettes pour inclure uniquement celles qui contiennent tous les ingrédients sélectionnés
-    let filteredRecipes = recipes.filter(recipe => 
-        // Vérifier que chaque ingrédient sélectionné se trouve dans la liste des ingrédients de la recette
-        selectedIngredients.every(selectedIngredient => 
-            // Utiliser la méthode some pour vérifier si au moins un des ingrédients de la recette correspond à l'ingrédient sélectionné
-            recipe.ingredients.some(ingredient => 
-                // Comparer les ingrédients en minuscules pour éviter les problèmes de casse (majuscules/minuscules)
-                ingredient.ingredient.toLowerCase() === selectedIngredient.toLowerCase()
-            )
-        )
-    );
+    let query = inputSearch.value; // Récupérer la valeur de la recherche actuelle
+
+    let filteredRecipes = searchByTitle(recipes, query);
+    filteredRecipes = filterBySelectedIngredients(filteredRecipes, selectedIngredients);
     renderRecipes(filteredRecipes); // Render the filtered recipes
 }
 
