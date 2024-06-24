@@ -79,7 +79,7 @@ async function renderIngredients(ingredients) {
     ingredients.forEach(ingredient => {
         let div = document.createElement('div');
         div.innerHTML = `${ingredient}`;
-        div.classList.add('bg-white', 'p-4', 'w-60', 'flex', 'justify-between', 'items-center', 'cursor-pointer');
+        div.classList.add('bg-white', 'p-4', 'w-60', 'flex', 'justify-between', 'items-center', 'cursor-pointer', 'hover:bg-primary-color', 'ease-in', 'duration-150');
         inputIngredients.appendChild(div);
 
          // Add click event listener for each ingredient
@@ -99,7 +99,7 @@ function selectIngredient(ingredient) {
         <div class="flex justify-center relative">
             <div class="bg-primary-color p-4 ingredients mt-4 w-3/4 rounded-xl">${ingredient}</div>
             <div class="delete__ingredient">
-                <i class="fa-solid fa-xmark absolute text-xl top-9 right-14"></i>
+                <i class="fa-solid fa-xmark absolute text-xl top-9 right-14 cursor-pointer"></i>
             </div>
         </div>
     `;
