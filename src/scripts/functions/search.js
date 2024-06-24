@@ -36,16 +36,16 @@ export function removeSearch(inputSearchId, removeSearchClass) {
 }
 
 
-export function filteredBySelectedIngredients(recipes, selectedIngredients) {
-
-    return recipes.filter(recipe => 
-        // Vérifier que chaque ingrédient sélectionné se trouve dans la liste des ingrédients de la recette
-        selectedIngredients.every(selectedIngredient => 
-            // Utiliser la méthode some pour vérifier si au moins un des ingrédients de la recette correspond à l'ingrédient sélectionné
-            recipe.ingredients.some(ingredient => 
-                // Comparer les ingrédients en minuscules pour éviter les problèmes de casse (majuscules/minuscules)
-                ingredient.ingredient.toLowerCase() === selectedIngredient.toLowerCase()
+export function filterBySelectedIngredients(recipes, selectedIngredients) {
+    if (selectedIngredients.length > 0) {
+        return recipes.filter(recipe => 
+            selectedIngredients.every(selectedIngredient => 
+                recipe.ingredients.some(ingredient => 
+                    ingredient.ingredient.toLowerCase() === selectedIngredient.toLowerCase()
+                )
             )
-        )
-    );
+        );
+    }
+    return recipes;
+
 }
