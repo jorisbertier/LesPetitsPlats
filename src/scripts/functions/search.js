@@ -34,3 +34,18 @@ export function removeSearch(inputSearchId, removeSearchClass) {
         inputSearch.value = ""
     })
 }
+
+
+export function filteredBySelectedIngredients(recipes, selectedIngredients) {
+
+    return recipes.filter(recipe => 
+        // Vérifier que chaque ingrédient sélectionné se trouve dans la liste des ingrédients de la recette
+        selectedIngredients.every(selectedIngredient => 
+            // Utiliser la méthode some pour vérifier si au moins un des ingrédients de la recette correspond à l'ingrédient sélectionné
+            recipe.ingredients.some(ingredient => 
+                // Comparer les ingrédients en minuscules pour éviter les problèmes de casse (majuscules/minuscules)
+                ingredient.ingredient.toLowerCase() === selectedIngredient.toLowerCase()
+            )
+        )
+    );
+}

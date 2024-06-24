@@ -1,6 +1,6 @@
 import { RecipeCard } from "../templates/RecipeCard.js"
 import { getRecipes } from "../api/api.js";
-import { searchByTitle, removeSearch } from "../functions/search.js";
+import { searchByTitle, removeSearch, filteredBySelectedIngredients } from "../functions/search.js";
 // import { searchByIngredient } from "../functions/searchByIngredient.js";
 
 //Select DOM element
@@ -16,7 +16,8 @@ async function displayRecipes() {
 
     search.addEventListener('click', ()=> {
         let query = inputSearch.value;
-        const filteredRecipes = searchByTitle(recipes, query)
+        let filteredRecipes = searchByTitle(recipes, query)
+        filteredRecipes = filteredBySelectedIngredients(filteredRecipes, selectedIngredients)
         renderRecipes(filteredRecipes)
     })
 
