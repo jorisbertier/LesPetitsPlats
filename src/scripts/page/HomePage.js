@@ -21,12 +21,12 @@ async function displayRecipes() {
         renderRecipes(filteredRecipes)
     })
 
-    search.addEventListener('click', ()=> {
-        let query = inputSearch.value;
-        let filteredRecipes = searchByTitle(recipes, query)
-        filteredRecipes = filterBySelectedIngredients(filteredRecipes, selectedIngredients)
-        renderRecipes(filteredRecipes)
-    })
+    // search.addEventListener('click', ()=> {
+    //     let query = inputSearch.value;
+    //     let filteredRecipes = searchByTitle(recipes, query)
+    //     filteredRecipes = filterBySelectedIngredients(filteredRecipes, selectedIngredients)
+    //     renderRecipes(filteredRecipes)
+    // })
 
 }
 
@@ -161,3 +161,27 @@ async function displayIngredients() {
 displayIngredients(); // Initial call to display ingredient suggestions
 
 /**Fin zone de test */
+
+
+
+// Get all Ustensiles
+
+async function getAllUstensiles() {
+    const { recipes } = await getRecipes();
+    let allUstensils = [];
+
+    // Extract ingredients from each recipe
+    recipes.forEach(recipe => {
+        recipe.ustensils.forEach(ustensil => {
+        //     getAllUstensiles.push(ingredient.ingredient.trim().toLowerCase()); // Add ustensils to the list
+            allUstensils.push(ustensil)
+        });
+        // console.log(recipe.ustensils)
+    });
+
+    allUstensils = [...new Set(allUstensils)]; // Remove duplicate ingredients
+    console.log(allUstensils)
+    return allUstensils; // Return all ingredients without duplicate
+}
+
+getAllUstensiles()
