@@ -62,3 +62,17 @@ export function filterBySelectedUstensils(recipes, selectedUstensils) {
     }
     return recipes;
 }
+
+export function filterBySelectedAppliances(recipes, selectedAppliances) {
+
+    if (selectedAppliances.length > 0) {
+        return recipes.filter(recipe => 
+            selectedAppliances.every(selectedAppliance => 
+                // recipe.appliances.some(appliance => 
+                    recipe.appliance.toLowerCase() === selectedAppliance.toLowerCase()
+                // )
+            )
+        );
+    }
+    return recipes;
+}

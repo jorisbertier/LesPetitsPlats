@@ -1,6 +1,6 @@
 import { RecipeCard } from "../templates/RecipeCard.js"
 import { getRecipes } from "../api/api.js";
-import { searchByTitle, removeSearch, filterBySelectedIngredients, filterBySelectedUstensils } from "../functions/search.js";
+import { searchByTitle, removeSearch, filterBySelectedIngredients, filterBySelectedUstensils, filterBySelectedAppliances } from "../functions/search.js";
 // import { searchByIngredient } from "../functions/searchByIngredient.js";
 
 //Select DOM element
@@ -19,6 +19,7 @@ async function displayRecipes() {
         let filteredRecipes = searchByTitle(recipes, query)
         filteredRecipes = filterBySelectedIngredients(filteredRecipes, selectedIngredients)
         filteredRecipes = filterBySelectedUstensils(filteredRecipes, selectedUstensils)
+        filteredRecipes = filterBySelectedAppliances(filteredRecipes, selectedAppliances);
         renderRecipes(filteredRecipes)
     })
 
@@ -185,8 +186,6 @@ async function getAllUstensils() {
     return allUstensils; // Return all ustensil without duplicate
 }
 
-getAllUstensils()
-
 async function renderUstensils(ustensils) {
     let inputUstensils = document.querySelector('.results__ustensils');
 
@@ -269,7 +268,7 @@ displayUstensils();
 
 /*Get all appareils */
 // Get all Ustensiles
-let inputSearchAppliance = document.querySelector('.search__input--appliance');
+let inputSearchAppliance = document.querySelector('.search__input--appliances');
 let appliances = [];
 let selectedAppliances = [];
 
@@ -286,3 +285,81 @@ async function getAllAppliances() {
 }
 
 getAllAppliances()
+
+async function renderAppliances(appliances) {
+    let inputAppliances= document.querySelector('.results__appliances');
+
+    inputAppliances.innerHTML = "";
+
+    appliances.forEach(appliance => {
+        let div = document.createElement('div');
+        div.innerHTML = `${appliance}`;
+        div.classList.add('bg-white', 'p-4', 'w-60', 'flex', 'justify-between', 'items-center', 'cursor-pointer', 'hover:bg-primary-color', 'ease-in', 'duration-150');
+        inputAppliances.appendChild(div);
+
+        div.addEventListener('click', () => {
+            selectAppliance(appliance);
+        });
+    });
+}
+
+function selectAppliance(appliance) {
+    let wrapperAppliances = document.querySelector('.selected__appliance');
+    let divSelectedAppliance = document.createElement('div');
+
+    divSelectedAppliance.innerHTML = `
+        <div class="flex justify-center relative">
+            <div class="bg-primary-color p-4 ingredients mt-4 w-3/4 rounded-xl">${appliance}</div>
+            <div class="delete__appliance">
+                <i class="fa-solid fa-xmark absolute text-xl top-9 right-14 cursor-pointer"></i>
+            </div>
+        </div>
+    `;
+    wrapperAppliances.appendChild(divSelectedAppliance);
+
+    selectedAppliances.push(appliance);
+
+    appliances = appliances.filter(ing => ing != appliance);
+    renderAppliances(appliances.filter(ing => ing.toLowerCase().includes(inputSearchAppliance.value.toLowerCase())));
+    updateRecipesByAppliance();
+
+    let deleteButton = divSelectedAppliance.querySelector('.delete__appliance');
+    deleteButton.addEventListener('click', () => {
+        wrapperAppliances.removeChild(divSelectedAppliance);
+        appliances.push(appliance);
+        selectedAppliances= selectedAppliances.filter(ing => ing !== appliance);
+
+        renderAppliances(appliances.filter(ing => ing.toLowerCase().includes(inputSearchAppliance.value.toLowerCase())));
+        updateRecipesByAppliance();
+    });
+}
+
+async function updateRecipesByAppliance() {
+    const { recipes } = await getRecipes();
+
+    let query = inputSearch.value;
+
+    let filteredRecipes = searchByTitle(recipes, query);
+    filteredRecipes = filterBySelectedIngredients(filteredRecipes, selectedIngredients);
+    filteredRecipes = filterBySelectedUstensils(filteredRecipes, selectedUstensils);
+    filteredRecipes = filterBySelectedAppliances(filteredRecipes, selectedAppliances);
+    renderRecipes(filteredRecipes);
+}
+
+
+async function displayAppliances() {
+    appliances = await getAllAppliances();
+
+    inputSearchAppliance.addEventListener('input', () => {
+        
+        let allAppliancesFilterByValue = appliances.filter(appliance => 
+            appliance.toLowerCase().includes(inputSearchAppliance.value.toLowerCase())
+        );
+        console.log(allAppliancesFilterByValue)
+        renderAppliances(allAppliancesFilterByValue);
+    });
+
+    renderAppliances(appliances);
+}
+
+displayAppliances();
