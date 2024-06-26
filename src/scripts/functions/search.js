@@ -17,12 +17,19 @@ export function searchByTitle(recipes, query) {
         messageSearchError.innerHTML = ""
         //Delete duplicate
         allRecipes = [... new Set(allRecipes)]
+
+        if(allRecipes.length === 0) {
+            messageSearchError.innerHTML = "Aucun résultat ne correspond à votre recherche"
+        } else {
+            messageSearchError.innerHTML = ""
+        }
         return allRecipes
     } else {
         messageSearchError.innerHTML = "Vous devez entrer au minimum 3 caractères pour faire la recherche"
         let allRecipes = []
-        return allRecipes
+        
     }
+
 }  
 
 // Remove search at the click, re initialiaze search to ""
