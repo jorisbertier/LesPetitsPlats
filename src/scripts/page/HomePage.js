@@ -1,6 +1,6 @@
 import { RecipeCard } from "../templates/RecipeCard.js"
 import { getRecipes } from "../api/api.js";
-import { searchByTitle, removeSearch, filterBySelectedIngredients } from "../functions/search.js";
+import { searchByTitle, removeSearch, filterBySelectedIngredients, filterBySelectedUstensils } from "../functions/search.js";
 // import { searchByIngredient } from "../functions/searchByIngredient.js";
 
 //Select DOM element
@@ -18,6 +18,7 @@ async function displayRecipes() {
         let query = inputSearch.value;
         let filteredRecipes = searchByTitle(recipes, query)
         filteredRecipes = filterBySelectedIngredients(filteredRecipes, selectedIngredients)
+        filteredRecipes = filterBySelectedIngredients(filteredRecipes, selectedUstensils)
         renderRecipes(filteredRecipes)
     })
 
@@ -181,7 +182,6 @@ async function getAllUstensils() {
     });
 
     allUstensils = [...new Set(allUstensils)]; // Remove duplicate ustensils
-    console.log(allUstensils)
     return allUstensils; // Return all ustensil without duplicate
 }
 
@@ -221,42 +221,45 @@ function selectUstensil(ustensil) {
     selectedUstensils.push(ustensil);
 
     ustensils = ustensils.filter(ing => ing != ustensil);
-    console.log(ustensils)
     renderUstensils(ustensils.filter(ing => ing.toLowerCase().includes(inputSearchUstensils.value.toLowerCase())));
-    // updateRecipesByUstensil();
+    updateRecipesByUstensil();
 
     let deleteButton = divSelectedUstensil.querySelector('.delete__ustensil');
     deleteButton.addEventListener('click', () => {
         wrapperUsentils.removeChild(divSelectedUstensil);
         ustensils.push(ustensil);
-        console.log(ustensils)
         selectedUstensils = selectedUstensils.filter(ing => ing !== ustensil);
-        console.log(selectedUstensils);
 
         renderUstensils(ustensils.filter(ing => ing.toLowerCase().includes(inputSearchUstensils.value.toLowerCase())));
-        // updateRecipesByUstensil();
+        updateRecipesByUstensil();
     });
 }
 
-// async function updateRecipesByUstensil() {
-//     const { recipes } = await getRecipes();
 
-//     let query = inputSearch.value;
+async function updateRecipesByUstensil() {
+    const { recipes } = await getRecipes();
 
-//     let filteredRecipes = searchByTitle(recipes, query);
-//     filteredRecipes = filterBySelectedIngredients(filteredRecipes, selectedIngredients);
-//     renderRecipes(filteredRecipes); // Render the filtered recipes
-// }
+    let query = inputSearch.value;
+
+    // console.log(ustensils)
+    // let filteredRecipes = searchByTitle(recipes, query);
+    let filteredRecipes = filterBySelectedUstensils(recipes, selectedUstensils);
+    console.log(recipes)
+    // filteredRecipes = filterBySelectedUstensils(filteredRecipes, selectedUstensils);
+    renderRecipes(filteredRecipes); // Render the filtered recipes
+}
 
 
 async function displayUstensils() {
     ustensils = await getAllUstensils();
 
     inputSearchUstensils.addEventListener('input', () => {
-        let allIngredientsFilterByValue = ustensils.filter(ingredient => 
+        
+        let allUstensilsFilterByValue = ustensils.filter(ingredient => 
             ingredient.toLowerCase().includes(inputSearchUstensils.value.toLowerCase())
         );
-        renderUstensils(allIngredientsFilterByValue);
+        console.log(allUstensilsFilterByValue)
+        renderUstensils(allUstensilsFilterByValue);
     });
 
     renderUstensils(ustensils);

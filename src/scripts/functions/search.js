@@ -47,5 +47,19 @@ export function filterBySelectedIngredients(recipes, selectedIngredients) {
         );
     }
     return recipes;
+}
 
+export function filterBySelectedUstensils(recipes, selectedUstensils) {
+
+    
+    if (selectedUstensils.length > 0) {
+        return recipes.filter(recipe => 
+            selectedUstensils.every(selectedUstensil => 
+                recipe.ustensils.some(ustensil => 
+                    ustensil.toLowerCase() === selectedUstensil.toLowerCase()
+                )
+            )
+        );
+    }
+    return recipes;
 }
