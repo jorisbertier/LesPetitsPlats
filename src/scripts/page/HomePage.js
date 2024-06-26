@@ -165,23 +165,101 @@ displayIngredients(); // Initial call to display ingredient suggestions
 
 
 // Get all Ustensiles
+let inputSearchUstensils = document.querySelector('.search__input--ustensils');
+let ustensils = [];
+let selectedUstensils = [];
 
-async function getAllUstensiles() {
+async function getAllUstensils() {
     const { recipes } = await getRecipes();
     let allUstensils = [];
 
-    // Extract ingredients from each recipe
+    // Extract ustensils from each recipe
     recipes.forEach(recipe => {
         recipe.ustensils.forEach(ustensil => {
-        //     getAllUstensiles.push(ingredient.ingredient.trim().toLowerCase()); // Add ustensils to the list
-            allUstensils.push(ustensil.trim().toLowerCase())
+            allUstensils.push(ustensil.trim().toLowerCase()) // Add ustensils to the list
         });
-        // console.log(recipe.ustensils)
     });
 
-    allUstensils = [...new Set(allUstensils)]; // Remove duplicate ingredients
+    allUstensils = [...new Set(allUstensils)]; // Remove duplicate ustensils
     console.log(allUstensils)
-    return allUstensils; // Return all ingredients without duplicate
+    return allUstensils; // Return all ustensil without duplicate
 }
 
-getAllUstensiles()
+getAllUstensils()
+
+async function renderUstensils(ustensils) {
+    let inputUstensils = document.querySelector('.results__ustensils');
+
+    inputUstensils.innerHTML = "";
+
+    ustensils.forEach(ustensil => {
+        let div = document.createElement('div');
+        div.innerHTML = `${ustensil}`;
+        div.classList.add('bg-white', 'p-4', 'w-60', 'flex', 'justify-between', 'items-center', 'cursor-pointer', 'hover:bg-primary-color', 'ease-in', 'duration-150');
+        inputUstensils.appendChild(div);
+
+        div.addEventListener('click', () => {
+            selectUstensil(ustensil);
+        });
+    });
+}
+
+function selectUstensil(ustensil) {
+    let wrapperUsentils = document.querySelector('.selected__ustensil');
+    let divSelectedUstensil = document.createElement('div');
+
+    divSelectedUstensil.innerHTML = `
+        <div class="flex justify-center relative">
+            <div class="bg-primary-color p-4 ingredients mt-4 w-3/4 rounded-xl">${ustensil}</div>
+            <div class="delete__ustensil">
+                <i class="fa-solid fa-xmark absolute text-xl top-9 right-14 cursor-pointer"></i>
+            </div>
+        </div>
+    `;
+    wrapperUsentils.appendChild(divSelectedUstensil);
+
+    selectedUstensils.push(ustensil);
+
+    ustensils = ustensils.filter(ing => ing != ustensil);
+    console.log(ustensils)
+    renderUstensils(ustensils.filter(ing => ing.toLowerCase().includes(inputSearchUstensils.value.toLowerCase())));
+    // updateRecipesByUstensil();
+
+    let deleteButton = divSelectedUstensil.querySelector('.delete__ustensil');
+    deleteButton.addEventListener('click', () => {
+        wrapperUsentils.removeChild(divSelectedUstensil);
+        ustensils.push(ustensil);
+        console.log(ustensils)
+        selectedUstensils = selectedUstensils.filter(ing => ing !== ustensil);
+        console.log(selectedUstensils);
+
+        renderUstensils(ustensils.filter(ing => ing.toLowerCase().includes(inputSearchUstensils.value.toLowerCase())));
+        // updateRecipesByUstensil();
+    });
+}
+
+// async function updateRecipesByUstensil() {
+//     const { recipes } = await getRecipes();
+
+//     let query = inputSearch.value;
+
+//     let filteredRecipes = searchByTitle(recipes, query);
+//     filteredRecipes = filterBySelectedIngredients(filteredRecipes, selectedIngredients);
+//     renderRecipes(filteredRecipes); // Render the filtered recipes
+// }
+
+
+async function displayUstensils() {
+    ustensils = await getAllUstensils();
+
+    inputSearchUstensils.addEventListener('input', () => {
+        let allIngredientsFilterByValue = ustensils.filter(ingredient => 
+            ingredient.toLowerCase().includes(inputSearchUstensils.value.toLowerCase())
+        );
+        renderUstensils(allIngredientsFilterByValue);
+    });
+
+    renderUstensils(ustensils);
+}
+
+displayUstensils();
