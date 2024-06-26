@@ -27,7 +27,7 @@ export function searchByTitle(recipes, query) {
     } else {
         messageSearchError.innerHTML = "Vous devez entrer au minimum 3 caractères pour faire la recherche"
         let allRecipes = []
-        
+        return allRecipes
     }
 
 }  
