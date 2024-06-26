@@ -18,7 +18,7 @@ async function displayRecipes() {
         let query = inputSearch.value;
         let filteredRecipes = searchByTitle(recipes, query)
         filteredRecipes = filterBySelectedIngredients(filteredRecipes, selectedIngredients)
-        filteredRecipes = filterBySelectedIngredients(filteredRecipes, selectedUstensils)
+        filteredRecipes = filterBySelectedUstensils(filteredRecipes, selectedUstensils)
         renderRecipes(filteredRecipes)
     })
 
@@ -242,10 +242,10 @@ async function updateRecipesByUstensil() {
     let query = inputSearch.value;
 
     // console.log(ustensils)
-    // let filteredRecipes = searchByTitle(recipes, query);
-    let filteredRecipes = filterBySelectedUstensils(recipes, selectedUstensils);
+    let filteredRecipes = searchByTitle(recipes, query);
+    filteredRecipes = filterBySelectedIngredients(filteredRecipes, selectedIngredients);
+    filteredRecipes = filterBySelectedUstensils(filteredRecipes, selectedUstensils);
     console.log(recipes)
-    // filteredRecipes = filterBySelectedUstensils(filteredRecipes, selectedUstensils);
     renderRecipes(filteredRecipes); // Render the filtered recipes
 }
 
@@ -266,3 +266,23 @@ async function displayUstensils() {
 }
 
 displayUstensils();
+
+/*Get all appareils */
+// Get all Ustensiles
+let inputSearchAppliance = document.querySelector('.search__input--appliance');
+let appliances = [];
+let selectedAppliances = [];
+
+async function getAllAppliances() {
+    const { recipes } = await getRecipes();
+    let allAppliances = [];
+
+    recipes.forEach(recipe => {
+        allAppliances.push(recipe.appliance.trim().toLowerCase())
+    });
+
+    allAppliances = [...new Set(allAppliances)];
+    return allAppliances;
+}
+
+getAllAppliances()

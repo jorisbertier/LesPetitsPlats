@@ -51,7 +51,6 @@ export function filterBySelectedIngredients(recipes, selectedIngredients) {
 
 export function filterBySelectedUstensils(recipes, selectedUstensils) {
 
-    
     if (selectedUstensils.length > 0) {
         return recipes.filter(recipe => 
             selectedUstensils.every(selectedUstensil => 
