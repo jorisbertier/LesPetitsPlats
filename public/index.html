@@ -9,6 +9,12 @@
     <title>Les petits plats</title>
 </head>
 <body>
+    <div class="absolute bottom-4 left-4">
+        <span class="sm:hidden md:hidden lg:hidden">XS</span>
+        <span class="hidden sm:block md:hidden">SM</span>
+        <span class="hidden md:block lg:hidden">MD</span>
+        <span class="hidden xl:hidden lg:block">LG</span>
+    </div>
     <header class="w-full h-500 flex flex-col object-cover justify-center items-center bg-header-image bg-cover bg-center relative">
         <div class="absolute top-6 left-6 flex items-center">
             <h2 class="text-white text-3xl uppercase font-anton mr-3">Les petits plats</h2>
@@ -31,11 +37,11 @@
         
     </header>
     <main class="bg-zinc-300 pt-5">
-        <section class="mt-5 mb-10 w-4/5 m-auto flex justify-between items-center">
+        <section class="mt-5 mb-10 w-4/5 m-auto flex justify-between items-center max-md:justify-center">
             <div class="flex gap-10">
                 <div class="flex flex-col selected__ingredient">
                     <div class="overflow-hidden h-96 flex flex-col">
-                        <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center">Ingrédients
+                        <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center max-md:w-44">Ingrédients
                         <div class="chevron-down--ingredients">
                             <i class="fa-solid fa-chevron-down p-2"></i>
                         </div>
@@ -61,7 +67,7 @@
                 </div>
                 <div class="flex flex-col selected__ustensil">
                     <div class="overflow-hidden h-96 flex flex-col">
-                        <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center">Ustensiles
+                        <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center max-md:w-44">Ustensiles
                             <div class="chevron-down--ustensils">
                                 <i class="fa-solid fa-chevron-down p-2"></i>
                             </div>
@@ -86,7 +92,7 @@
                 </div>
                 <div class="flex flex-col selected__appliance">
                     <div class="overflow-hidden h-96 flex flex-col">
-                        <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center">Appareils
+                        <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center max-md:w-44">Appareils
                             <div class="chevron-down--appliances">
                                 <i class="fa-solid fa-chevron-down p-2"></i>
                             </div>
@@ -107,12 +113,12 @@
                                 <div class="results__appliances w-full flex flex-col"></div>
                             </div>
                         </div>
+                        <h3 class="font-anton text-black font-bold text-md total_recipes absolute top-10 right-0">50 recettes</h3>
                     </div>
                 </div>
 
                 
             </div>
-            <h3 class="font-anton text-black font-bold text-md total_recipes">50 recettes</h3>
         </section>
         <section class="mt-5 w-4/5 m-auto flex justify-between grid-rows-3 flex-wrap gap-5 wrapper__recipes">
             
