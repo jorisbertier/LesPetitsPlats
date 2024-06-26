@@ -1,6 +1,7 @@
 import { RecipeCard } from "../templates/RecipeCard.js"
 import { getRecipes } from "../api/api.js";
 import { searchByTitle, removeSearch, filterBySelectedIngredients, filterBySelectedUstensils, filterBySelectedAppliances } from "../functions/search.js";
+import { totalRecipes } from "../functions/totalRecipes.js"
 // import { searchByIngredient } from "../functions/searchByIngredient.js";
 
 //Select DOM element
@@ -21,6 +22,7 @@ async function displayRecipes() {
         filteredRecipes = filterBySelectedUstensils(filteredRecipes, selectedUstensils)
         filteredRecipes = filterBySelectedAppliances(filteredRecipes, selectedAppliances);
         renderRecipes(filteredRecipes)
+        totalRecipes(filteredRecipes.length)
     })
 
     // search.addEventListener('click', ()=> {
@@ -139,9 +141,11 @@ async function updateRecipesByIngredient() {
     const { recipes } = await getRecipes();
 
     let query = inputSearch.value; // Récupérer la valeur de la recherche actuelle
+    
 
     let filteredRecipes = searchByTitle(recipes, query);
     filteredRecipes = filterBySelectedIngredients(filteredRecipes, selectedIngredients);
+    totalRecipes(filteredRecipes.length)
     renderRecipes(filteredRecipes); // Render the filtered recipes
 }
 
@@ -244,7 +248,7 @@ async function updateRecipesByUstensil() {
     let filteredRecipes = searchByTitle(recipes, query);
     filteredRecipes = filterBySelectedIngredients(filteredRecipes, selectedIngredients);
     filteredRecipes = filterBySelectedUstensils(filteredRecipes, selectedUstensils);
-    console.log(recipes)
+    totalRecipes(filteredRecipes.length)
     renderRecipes(filteredRecipes); // Render the filtered recipes
 }
 
@@ -283,8 +287,6 @@ async function getAllAppliances() {
     allAppliances = [...new Set(allAppliances)];
     return allAppliances;
 }
-
-getAllAppliances()
 
 async function renderAppliances(appliances) {
     let inputAppliances= document.querySelector('.results__appliances');
@@ -343,6 +345,7 @@ async function updateRecipesByAppliance() {
     filteredRecipes = filterBySelectedIngredients(filteredRecipes, selectedIngredients);
     filteredRecipes = filterBySelectedUstensils(filteredRecipes, selectedUstensils);
     filteredRecipes = filterBySelectedAppliances(filteredRecipes, selectedAppliances);
+    totalRecipes(filteredRecipes.length)
     renderRecipes(filteredRecipes);
 }
 

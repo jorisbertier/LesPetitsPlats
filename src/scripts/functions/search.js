@@ -17,7 +17,6 @@ export function searchByTitle(recipes, query) {
         messageSearchError.innerHTML = ""
         //Delete duplicate
         allRecipes = [... new Set(allRecipes)]
-
         if(allRecipes.length === 0) {
             messageSearchError.innerHTML = "Aucun résultat ne correspond à votre recherche"
         } else {

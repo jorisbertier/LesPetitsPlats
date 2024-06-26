@@ -35,9 +35,16 @@
             <div class="flex gap-10">
                 <div class="flex flex-col selected__ingredient">
                     <div class="overflow-hidden h-96 flex flex-col">
-                        <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center">Ingrédients <i class="fa-solid fa-chevron-down"></i></button>
+                        <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center">Ingrédients
+                        <div class="chevron-down--ingredients">
+                            <i class="fa-solid fa-chevron-down p-2"></i>
+                        </div>
+                        <div class="hidden chevron-up--ingredients">
+                            <i class="fa-solid fa-chevron-up hidden p-2"></i>
+                        </div>
+                            </button>
                         <!-- <div class="bg-white p-4 w-40 flex justify-between items-center all__ingredients"></div> -->
-                        <div class="relative bg-red-50 ingredients w-60 p-4 flex flex-col justify-center">
+                        <div class="relative bg-red-50 ingredients hidden w-60 p-4 flex-col justify-center">
                             <div>
                                 <input type="text" class="w-4/5 h-10 p-3 search__input" placeholder="Search..">
                                 <div class="absolute top-6 right-20">X</div>
@@ -54,8 +61,15 @@
                 </div>
                 <div class="flex flex-col selected__ustensil">
                     <div class="overflow-hidden h-96 flex flex-col">
-                        <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center">Ustensiles <i class="fa-solid fa-chevron-down"></i></button>
-                        <div class="relative bg-red-50 ustensils w-60 p-4 flex flex-col justify-center">
+                        <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center">Ustensiles
+                            <div class="chevron-down--ustensils">
+                                <i class="fa-solid fa-chevron-down p-2"></i>
+                            </div>
+                            <div class="hidden chevron-up--ustensils">
+                                <i class="fa-solid fa-chevron-up p-2"></i>
+                            </div>
+                        </button>
+                        <div class="relative bg-red-50 ustensils w-60 p-4 hidden flex-col justify-center">
                             <div>
                                 <input type="text" class="w-4/5 h-10 p-3 search__input--ustensils" placeholder="Search..">
                                 <div class="absolute top-6 right-20">X</div>
@@ -72,8 +86,15 @@
                 </div>
                 <div class="flex flex-col selected__appliance">
                     <div class="overflow-hidden h-96 flex flex-col">
-                        <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center">Appareils <i class="fa-solid fa-chevron-down"></i></button>
-                        <div class="relative bg-red-50 ustensils w-60 p-4 flex flex-col justify-center">
+                        <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center">Appareils
+                            <div class="chevron-down--appliances">
+                                <i class="fa-solid fa-chevron-down p-2"></i>
+                            </div>
+                            <div class="hidden chevron-up--appliances">
+                                <i class="fa-solid fa-chevron-up p-2"></i>
+                            </div>
+                        </button>
+                        <div class="relative bg-red-50 appliances w-60 p-4 hidden flex-col justify-center">
                             <div>
                                 <input type="text" class="w-4/5 h-10 p-3 search__input--appliances" placeholder="Search..">
                                 <div class="absolute top-6 right-20">X</div>
@@ -91,12 +112,13 @@
 
                 
             </div>
-            <h3 class="font-anton text-black font-bold text-md">1500 recettes</h3>
+            <h3 class="font-anton text-black font-bold text-md total_recipes">50 recettes</h3>
         </section>
         <section class="mt-5 w-4/5 m-auto flex justify-between grid-rows-3 flex-wrap gap-5 wrapper__recipes">
             
         </section>
     </main>
     <script type="module" src="/src/scripts/page/HomePage.js"></script>
+    <script src="/src/scripts/functions/openDropdown.js"></script>
 </body>
 </html>

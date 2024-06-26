@@ -576,11 +576,17 @@ video {
 .mt-6 {
   margin-top: 1.5rem;
 }
+.block {
+  display: block;
+}
 .flex {
   display: flex;
 }
 .grid {
   display: grid;
+}
+.hidden {
+  display: none;
 }
 .h-10 {
   height: 2.5rem;
@@ -749,6 +755,9 @@ video {
 }
 .p-6 {
   padding: 1.5rem;
+}
+.p-10 {
+  padding: 2.5rem;
 }
 .pl-6 {
   padding-left: 1.5rem;
