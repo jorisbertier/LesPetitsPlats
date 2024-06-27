@@ -32,9 +32,15 @@ module.exports = {
         'secondary-color': '#7A7A7A'
       },
       screens: {
+        'max-xl': {'max': '1280px'},
+        'min-xl': {'min': '1280px'},
         'max-lg': {'max': '1024px'},
+        'max-860': {'max': '860px'},
+        'max-800': {'max': '800px'},
         'max-md': {'max': '768px'},
+        'max-690': {'max': '690px'},
         'max-sm': {'max': '640px'},
+        'max-570': {'max': '570px'},
         'max-500': {'max': '500px'},
         'max-426': {'max': '426px'},
         'max-400': {'max': '400px'},
