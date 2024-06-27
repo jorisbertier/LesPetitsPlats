@@ -9,12 +9,6 @@
     <title>Les petits plats</title>
 </head>
 <body>
-    <div class="absolute bottom-4 left-4">
-        <span class="sm:hidden md:hidden lg:hidden">XS</span>
-        <span class="hidden sm:block md:hidden">SM</span>
-        <span class="hidden md:block lg:hidden">MD</span>
-        <span class="hidden xl:hidden lg:block">LG</span>
-    </div>
     <header class="w-full h-500 flex flex-col object-cover justify-center items-center bg-header-image bg-cover bg-center relative">
         <div class="absolute top-6 left-6 flex items-center">
             <h2 class="text-white text-3xl uppercase font-anton mr-3">Les petits plats</h2>
@@ -49,7 +43,6 @@
                                 <i class="fa-solid fa-chevron-up hidden p-2"></i>
                             </div>
                         </button>
-                        <!-- <div class="bg-white p-4 w-40 flex justify-between items-center all__ingredients"></div> -->
                         <div class="relative ingredients hidden w-60 flex-col justify-center max-sm:w-28 max-sm:text-xs max-sm:p-2">
                             <div class="bg-white p-2 flex justify-center">
                                 <input type="text" class="w-4/5 h-10 p-3 search__input rounded-md border-2 border-customGrey border-solid" placeholder="Search..">
@@ -77,12 +70,13 @@
                                 <i class="fa-solid fa-chevron-up p-2"></i>
                             </div>
                         </button>
-                        <div class="relative bg-red-50 ustensils w-60 p-4 hidden flex-col justify-center max-sm:w-28 max-sm:text-xs max-sm:p-2">
-                            <div>
-                                <input type="text" class="w-4/5 h-10 p-3 search__input--ustensils" placeholder="Search..">
-                                <div class="absolute top-6 right-20">X</div>
-        
-                                <div class="absolute top-6 right-12 bg-red-400 search__button">
+                        <div class="relative ustensils w-60 hidden flex-col justify-center max-sm:w-28 max-sm:text-xs max-sm:p-2">
+                            <div class="bg-white p-2 flex justify-center">
+                                <input type="text" class="w-4/5 h-10 p-3 search__input--ustensils rounded-md border-2 border-customGrey border-solid" placeholder="Search..">
+                                <div class="absolute top-4 right-20">
+                                    <i class="fa-solid fa-xmark text-sm cursor-pointer"></i>
+                                </div>
+                                <div class="absolute top-4 right-12 search__button">
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                 </div>
                             </div>
@@ -102,12 +96,15 @@
                                 <i class="fa-solid fa-chevron-up p-2 max-sm:p-1"></i>
                             </div>
                         </button>
-                        <div class="relative bg-red-50 appliances w-60 p-4 hidden flex-col justify-center">
-                            <div>
-                                <input type="text" class="w-4/5 h-10 p-3 search__input--appliances" placeholder="Search..">
-                                <div class="absolute top-6 right-20">X</div>
+                        <div class="relative appliances w-60 hidden flex-col justify-center">
+                            <div class="bg-white p-2 flex justify-center">
+                                <input type="text" class="w-4/5 h-10 p-3 search__input--appliances rounded-md border-2 border-customGrey border-solid" placeholder="Search..">
+                                <div class="absolute top-4 right-20">
+                                    <i class="fa-solid fa-xmark text-sm cursor-pointer"></i>
+                                    
+                                </div>
         
-                                <div class="absolute top-6 right-12 bg-red-400 search__button">
+                                <div class="absolute top-4 right-12 search__button">
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                 </div>
                             </div>

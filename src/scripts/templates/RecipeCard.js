@@ -43,7 +43,7 @@ class RecipeCard {
         const allIngredients = getIngredients(ingredients)
 
         const card = document.createElement('article');
-        card.className = `bg-white rounded-3xl shadow-lg mb-5 w-96 h-700 max-lg:w-56 max-lg:h-500 max-md:w-48
+        card.className = `bg-white rounded-3xl shadow-lg mb-5 w-96 max-lg:w-56 max-md:w-48
         max-400:w-80 max-426:w-96 max-570:w-96 max-sm:w-5/6 max-md:w-80 max-690:w-72 max-860:w-80 max-lg:w-96
         max-350:w-72 max-md:justify-center h-auto pb-4`;
         card.innerHTML = `
