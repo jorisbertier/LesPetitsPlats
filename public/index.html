@@ -38,8 +38,8 @@
     </header>
     <main class="bg-zinc-300 pt-5">
         <section class="mt-5 mb-10 w-4/5 m-auto flex justify-between items-center max-lg:justify-around">
-            <div class="flex gap-10 max-sm:gap-3 max-sm:grid-rows-2 max-sm:flex-wrap max-sm:justify-between">
-                <div class="flex flex-col selected__ingredient">
+            <div class="flex gap-10 max-sm:gap-3 max-sm:grid-rows-2 max-sm:flex-wrap max-sm:justify-between relative h-44">
+                <div class="flex flex-col selected__ingredient absolute top-5 left-0 z-10">
                     <div class="overflow-hidden h-96 flex flex-col">
                         <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center max-lg:w-44 max-md:w-32 max-sm:w-28 max-sm:text-xs/3 max-sm:p-2">Ingrédients
                         <div class="chevron-down--ingredients">
@@ -65,7 +65,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col selected__ustensil">
+                <div class="flex flex-col selected__ustensil absolute top-5 left-64 z-10">
                     <div class="overflow-hidden h-96 flex flex-col">
                         <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center max-lg:w-44 max-md:w-32 max-sm:w-28 max-sm:text-xs max-sm:p-2">Ustensiles
                             <div class="chevron-down--ustensils">
@@ -90,7 +90,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col selected__appliance max-sm:hidden">
+                <div class="flex flex-col selected__appliance absolute top-5 left-[512px] z-10 max-sm:hidden">
                     <div class="overflow-hidden h-96 flex flex-col">
                         <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center max-lg:w-44 max-md:w-32 max-sm:w-20 max-sm:text-xs max-sm:p-2">Appareils
                             <div class="chevron-down--appliances">
