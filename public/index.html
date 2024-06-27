@@ -22,7 +22,7 @@
                 <div class=" rounded-full border-2 bg-white w-2 h-2"></div>
             </div>
         </div>
-        <h1 class="text-primary-color uppercase font-anton text-5xl text-center leading-snug w-2/4">Cherchez parmis plus de 1500 recettes du quotidien, simple et délicieuses</h1>
+        <h1 class="text-primary-color uppercase font-anton text-5xl text-center leading-snug w-2/4 max-lg:text-4xl">Cherchez parmis plus de 1500 recettes du quotidien, simple et délicieuses</h1>
         
             <div class="bg-white flex justify-center items-center rounded-md w-9/12 mb-1 relative mt-5">
                 <input type="text" id="recipe" name="name" required class="rounded-md w-full h-full p-4" placeholder="Rechercher une recette, un ingédient,..." />
@@ -37,11 +37,11 @@
         
     </header>
     <main class="bg-zinc-300 pt-5">
-        <section class="mt-5 mb-10 w-4/5 m-auto flex justify-between items-center max-md:justify-center">
-            <div class="flex gap-10">
+        <section class="mt-5 mb-10 w-4/5 m-auto flex justify-between items-center max-lg:justify-around">
+            <div class="flex gap-10 max-sm:gap-3 max-sm:grid-rows-2 max-sm:flex-wrap max-sm:justify-between">
                 <div class="flex flex-col selected__ingredient">
                     <div class="overflow-hidden h-96 flex flex-col">
-                        <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center max-md:w-44">Ingrédients
+                        <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center max-lg:w-44 max-md:w-32 max-sm:w-28 max-sm:text-xs/3 max-sm:p-2">Ingrédients
                         <div class="chevron-down--ingredients">
                             <i class="fa-solid fa-chevron-down p-2"></i>
                         </div>
@@ -50,7 +50,7 @@
                         </div>
                             </button>
                         <!-- <div class="bg-white p-4 w-40 flex justify-between items-center all__ingredients"></div> -->
-                        <div class="relative bg-red-50 ingredients hidden w-60 p-4 flex-col justify-center">
+                        <div class="relative bg-red-50 ingredients hidden w-60 p-4 flex-col justify-center max-sm:w-28 max-sm:text-xs max-sm:p-2">
                             <div>
                                 <input type="text" class="w-4/5 h-10 p-3 search__input" placeholder="Search..">
                                 <div class="absolute top-6 right-20">X</div>
@@ -67,7 +67,7 @@
                 </div>
                 <div class="flex flex-col selected__ustensil">
                     <div class="overflow-hidden h-96 flex flex-col">
-                        <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center max-md:w-44">Ustensiles
+                        <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center max-lg:w-44 max-md:w-32 max-sm:w-28 max-sm:text-xs max-sm:p-2">Ustensiles
                             <div class="chevron-down--ustensils">
                                 <i class="fa-solid fa-chevron-down p-2"></i>
                             </div>
@@ -75,7 +75,7 @@
                                 <i class="fa-solid fa-chevron-up p-2"></i>
                             </div>
                         </button>
-                        <div class="relative bg-red-50 ustensils w-60 p-4 hidden flex-col justify-center">
+                        <div class="relative bg-red-50 ustensils w-60 p-4 hidden flex-col justify-center max-sm:w-28 max-sm:text-xs max-sm:p-2">
                             <div>
                                 <input type="text" class="w-4/5 h-10 p-3 search__input--ustensils" placeholder="Search..">
                                 <div class="absolute top-6 right-20">X</div>
@@ -90,14 +90,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col selected__appliance">
+                <div class="flex flex-col selected__appliance max-sm:hidden">
                     <div class="overflow-hidden h-96 flex flex-col">
-                        <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center max-md:w-44">Appareils
+                        <button class="bg-white p-4 rounded-md w-60 flex justify-between items-center max-lg:w-44 max-md:w-32 max-sm:w-20 max-sm:text-xs max-sm:p-2">Appareils
                             <div class="chevron-down--appliances">
-                                <i class="fa-solid fa-chevron-down p-2"></i>
+                                <i class="fa-solid fa-chevron-down p-2 max-sm:p-1"></i>
                             </div>
                             <div class="hidden chevron-up--appliances">
-                                <i class="fa-solid fa-chevron-up p-2"></i>
+                                <i class="fa-solid fa-chevron-up p-2 max-sm:p-1"></i>
                             </div>
                         </button>
                         <div class="relative bg-red-50 appliances w-60 p-4 hidden flex-col justify-center">
@@ -120,7 +120,8 @@
                 
             </div>
         </section>
-        <section class="mt-5 w-4/5 m-auto flex justify-between grid-rows-3 flex-wrap gap-5 wrapper__recipes">
+        <section class="mt-5 w-4/5 m-auto flex justify-between grid-rows-3 flex-wrap gap-5 wrapper__recipes max-md:grid-rows-2 max-500:justify-center
+        max-375:grid-rows-1">
             
         </section>
     </main>

@@ -30,7 +30,17 @@ module.exports = {
       backgroundColor: {
         'primary-color': '#FFD15B',
         'secondary-color': '#7A7A7A'
-      }
+      },
+      screens: {
+        'max-lg': {'max': '1024px'},
+        'max-md': {'max': '768px'},
+        'max-sm': {'max': '640px'},
+        'max-500': {'max': '500px'},
+        'max-426': {'max': '426px'},
+        'max-400': {'max': '400px'},
+        'max-375': {'max': '375px'},
+        'max-350': {'max': '350px'},
+      },
     },
   },
   plugins: [],

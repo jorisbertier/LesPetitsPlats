@@ -83,7 +83,8 @@ async function renderIngredients(ingredients) {
     ingredients.forEach(ingredient => {
         let div = document.createElement('div');
         div.innerHTML = `${ingredient}`;
-        div.classList.add('bg-white', 'p-4', 'w-60', 'flex', 'justify-between', 'items-center', 'cursor-pointer', 'hover:bg-primary-color', 'ease-in', 'duration-150');
+        div.classList.add('bg-white', 'p-4', 'w-60', 'flex', 'justify-between', 'items-center', 'cursor-pointer', 'hover:bg-primary-color',
+            'ease-in', 'duration-150', 'max-sm:w-28', 'max-sm:text-xs', 'max-sm:p-2');
         inputIngredients.appendChild(div);
 
          // Add click event listener for each ingredient
