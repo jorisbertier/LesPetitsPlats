@@ -1,5 +1,5 @@
 import { RecipeCard } from "../templates/RecipeCard.js"
-import { getRecipes } from "../api/api.js";
+import { get } from "../api/api.js";
 import { searchByTitle, removeSearch, filterBySelectedIngredients, filterBySelectedUstensils, filterBySelectedAppliances } from "../functions/search.js";
 import { totalRecipes } from "../functions/totalRecipes.js"
 // import { searchByIngredient } from "../functions/searchByIngredient.js";
@@ -12,7 +12,7 @@ removeSearch('recipe', '.remove__result')
 
 //Display
 async function displayRecipes() {
-    const { recipes } = await getRecipes()
+    const recipes = await get("/data/recipes.js");
     renderRecipes(recipes);
 
     inputSearch.addEventListener('input', ()=> {
@@ -59,7 +59,8 @@ let selectedIngredients = [];
 
 // Function to get all ingredients without duplicate from recipes
 async function getAllIngredients() {
-    const { recipes } = await getRecipes();
+    const recipes = await get("/data/recipes.js");
+    
     let allIngredients = [];
 
     // Extract ingredients from each recipe
@@ -68,7 +69,6 @@ async function getAllIngredients() {
             allIngredients.push(ingredient.ingredient.trim().toLowerCase()); // Add ingredient to the list
         });
     });
-
     allIngredients = [...new Set(allIngredients)]; // Remove duplicate ingredients
     return allIngredients; // Return all ingredients without duplicate
 }
@@ -139,7 +139,7 @@ function selectIngredient(ingredient) {
 
 // Function to update recipes displayed based on selected ingredients
 async function updateRecipesByIngredient() {
-    const { recipes } = await getRecipes();
+    const recipes = await get("/data/recipes.js");
 
     let query = inputSearch.value; // Récupérer la valeur de la recherche actuelle
     
@@ -177,7 +177,7 @@ let ustensils = [];
 let selectedUstensils = [];
 
 async function getAllUstensils() {
-    const { recipes } = await getRecipes();
+    const recipes = await get("/data/recipes.js");
     let allUstensils = [];
 
     // Extract ustensils from each recipe
@@ -241,7 +241,7 @@ function selectUstensil(ustensil) {
 
 
 async function updateRecipesByUstensil() {
-    const { recipes } = await getRecipes();
+    const recipes = await get("/data/recipes.js");
 
     let query = inputSearch.value;
 
@@ -278,7 +278,7 @@ let appliances = [];
 let selectedAppliances = [];
 
 async function getAllAppliances() {
-    const { recipes } = await getRecipes();
+    const recipes = await get("/data/recipes.js");
     let allAppliances = [];
 
     recipes.forEach(recipe => {
@@ -338,7 +338,7 @@ function selectAppliance(appliance) {
 }
 
 async function updateRecipesByAppliance() {
-    const { recipes } = await getRecipes();
+    const recipes = await get("/data/recipes.js");
 
     let query = inputSearch.value;
 

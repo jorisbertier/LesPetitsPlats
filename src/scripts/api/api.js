@@ -1,23 +1,23 @@
 // Get datas recipes
-export async function getRecipes() {
+export async function get(url) {
 
-    let recipes = [];
+    // let recipes = [];
 
     try {
-        const response = await fetch("/data/recipes.js");
+        const response = await fetch(url);
         let data = await response.json();
-    
-        data.forEach(recipe => {
-            recipes.push(recipe)
-        });
+        return data
+        // data.forEach(recipe => {
+        //     recipes.push(recipe)
+        // });
 
     } catch(error) {
-        console.log('Error getting datas recipes', error)
+        console.log('Error getting datas', error)
     }
     // console.log(recipes)
-    return ({
-        recipes: [...recipes]
-    })
+    // return ({
+    //     recipes: [...recipes]
+    // })
 }
 
-getRecipes()
+// getRecipes()
