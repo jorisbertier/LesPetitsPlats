@@ -96,15 +96,23 @@ async function renderIngredients(ingredients) {
 
 // Function to handle(gèrer) the selection of an ingredient
 function selectIngredient(ingredient) {
-    let wrapperIngredients = document.querySelector('.selected__ingredient');
+    let wrapperIngredients = document.querySelector('.filterSearch');
 
     // Create a div for the selected ingredient
     let divSelectedIngredient = document.createElement('div');
+    // divSelectedIngredient.innerHTML = `
+    //     <div class="flex justify-center relative">
+    //         <div class="bg-primary-color p-4 ingredients mt-4 w-3/4 rounded-xl">${ingredient}</div>
+    //         <div class="delete__ingredient">
+    //             <i class="fa-solid fa-xmark absolute text-xl top-9 right-14 cursor-pointer"></i>
+    //         </div>
+    //     </div>
+    // `;
     divSelectedIngredient.innerHTML = `
         <div class="flex justify-center relative">
-            <div class="bg-primary-color p-4 ingredients mt-4 w-3/4 rounded-xl">${ingredient}</div>
+            <div class="bg-primary-color p-4 w-auto pr-16 rounded-xl">${ingredient}</div>
             <div class="delete__ingredient">
-                <i class="fa-solid fa-xmark absolute text-xl top-9 right-14 cursor-pointer"></i>
+                <i class="fa-solid fa-xmark absolute text-xl top-5 right-5 cursor-pointer"></i>
             </div>
         </div>
     `;
@@ -209,14 +217,14 @@ async function renderUstensils(ustensils) {
 }
 
 function selectUstensil(ustensil) {
-    let wrapperUsentils = document.querySelector('.selected__ustensil');
+    let wrapperUsentils = document.querySelector('.filterSearch');
     let divSelectedUstensil = document.createElement('div');
 
     divSelectedUstensil.innerHTML = `
         <div class="flex justify-center relative">
-            <div class="bg-primary-color p-4 ingredients mt-4 w-3/4 rounded-xl">${ustensil}</div>
+            <div class="bg-primary-color p-4 w-auto pr-16 rounded-xl">${ustensil}</div>
             <div class="delete__ustensil">
-                <i class="fa-solid fa-xmark absolute text-xl top-9 right-14 cursor-pointer"></i>
+                <i class="fa-solid fa-xmark absolute text-xl top-5 right-5 cursor-pointer"></i>
             </div>
         </div>
     `;
@@ -307,14 +315,14 @@ async function renderAppliances(appliances) {
 }
 
 function selectAppliance(appliance) {
-    let wrapperAppliances = document.querySelector('.selected__appliance');
+    let wrapperAppliances = document.querySelector('.filterSearch');
     let divSelectedAppliance = document.createElement('div');
 
     divSelectedAppliance.innerHTML = `
         <div class="flex justify-center relative">
-            <div class="bg-primary-color p-4 ingredients mt-4 w-3/4 rounded-xl">${appliance}</div>
+            <div class="bg-primary-color p-4 w-auto pr-16 rounded-xl">${appliance}</div>
             <div class="delete__appliance">
-                <i class="fa-solid fa-xmark absolute text-xl top-9 right-14 cursor-pointer"></i>
+                <i class="fa-solid fa-xmark absolute text-xl top-5 right-5 cursor-pointer"></i>
             </div>
         </div>
     `;
