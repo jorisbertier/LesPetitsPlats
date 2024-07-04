@@ -5,7 +5,7 @@ export function searchByTitle(recipes, query) {
     query = query.toLowerCase()
 
     //Filter by Name || Description || Ingredient
-    if(query.length >= 3) {
+    // if(query.length >= 3) {
         let filteredByIngredient = recipes.filter(recipe => recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(query)));
         let filteredByDescription = recipes.filter(recipe => recipe.description.toLowerCase().includes(query));
         let filteredByName = recipes.filter(recipe => recipe.name.toLowerCase().includes(query));
@@ -17,17 +17,17 @@ export function searchByTitle(recipes, query) {
         messageSearchError.innerHTML = ""
         //Delete duplicate
         allRecipes = [... new Set(allRecipes)]
-        if(allRecipes.length === 0) {
-            messageSearchError.innerHTML = "Aucun résultat ne correspond à votre recherche"
-        } else {
-            messageSearchError.innerHTML = ""
-        }
+        // if(allRecipes.length === 0) {
+        //     messageSearchError.innerHTML = "Aucun résultat ne correspond à votre recherche"
+        // } else {
+        //     messageSearchError.innerHTML = ""
+        // }
         return allRecipes
-    } else {
-        messageSearchError.innerHTML = "Vous devez entrer au minimum 3 caractères pour faire la recherche"
-        let allRecipes = []
-        return allRecipes
-    }
+    // } else {
+    //     messageSearchError.innerHTML = "Vous devez entrer au minimum 3 caractères pour faire la recherche"
+    //     let allRecipes = []
+    //     return allRecipes
+    // }
 
 }  
 
