@@ -351,7 +351,7 @@ import { displayIngredients } from "../functions/filterIngredients.js";
 import { displayUstensils } from "../functions/filterUstensils.js";
 import { displayAppliances } from "../functions/filterAppliances.js";
 
-// Appel des fonctions pour initialiser les affichages
+// Initialize display
 displayRecipes();
 displayIngredients();
 displayUstensils();
