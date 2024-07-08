@@ -9,27 +9,27 @@
     <title>Les petits plats</title>
 </head>
 <body class="bg-zinc-300">
-    <header class="w-full h-500 flex flex-col object-cover justify-center items-center bg-header-image bg-cover bg-center relative max-375:h-72">
+    <header class="w-full h-500 flex flex-col object-cover justify-center items-center bg-header-image bg-cover bg-center relative max-sm:h-72 max-lg:h-96">
         <div class="absolute top-6 left-6 flex items-center">
-            <h2 class="text-white text-3xl uppercase font-anton mr-3 max-375:text-sm">Les petits plats</h2>
+            <h2 class="text-white text-3xl uppercase font-anton mr-3 max-426:text-sm max-570:text-base max-860:text-lg">Les petits plats</h2>
             <div class=" rounded-full border-2 border-white w-4 h-4 flex justify-center items-center">
                 <div class=" rounded-full border-2 bg-white w-2 h-2"></div>
             </div>
         </div>
         <h1 class="text-primary-color uppercase font-anton text-5xl text-center leading-snug w-2/4 max-lg:text-4xl 
-        max-375:text-sm max-375:mt-12">Cherchez parmis plus de 1500 recettes du quotidien, simple et délicieuses</h1>
+        max-426:text-sm max-sm:mt-12 max-500:text-xl max-570:text-2xl max-sm:text-3xl">Cherchez parmis plus de 1500 recettes du quotidien, simple et délicieuses</h1>
         
-            <div class="bg-white flex justify-center items-center rounded-md w-9/12 mb-1 relative mt-5 max-375:w-72">
-                <input type="text" id="recipe" name="name" required class="rounded-md w-full h-full p-4 max-375:text-xs max-375:h-11" placeholder="Rechercher une recette, un ingédient,..." />
-                <div class="absolute bg-black rounded-md p-2 top-2 w-11 text-center right-5 search cursor-pointer max-375:w-7 max-375:h-7 max-375:top-2 max-375:right-3
+            <div class="bg-white flex justify-center items-center rounded-md w-9/12 mb-1 relative mt-5 max-426:w-72 max-570:w-96">
+                <input type="text" id="recipe" name="name" required class="rounded-md w-full h-full p-4 max-sm:text-xs max-sm:h-11" placeholder="Rechercher une recette, un ingédient,..." />
+                <div class="absolute bg-black rounded-md p-2 top-3 w-11 text-center right-5 search cursor-pointer max-sm:w-7 max-sm:h-7 max-sm:top-2 max-375:right-3
                 flex justify-center items-center">
-                    <i class="fa-solid fa-magnifying-glass text-white max-375:text-xs"></i>
+                    <i class="fa-solid fa-magnifying-glass text-white max-sm:text-xs"></i>
                 </div>
-                <div class="absolute top-4 right-20 remove__result cursor-pointer max-375:hidden">
+                <div class="absolute top-4 right-20 remove__result cursor-pointer max-500:hidden max-sm:top-3 max-sm:right-16">
                     <i class="fa-solid fa-xmark text-secondary-color"></i>
                 </div>
             </div>
-            <span class="search_error text-primary-color text-center max-375:flex max-375:justify-center max-375    :text-xs"></span>
+            <span class="search_error text-primary-color text-center max-sm:flex max-sm:justify-center max-sm:text-xs"></span>
         
     </header>
     <section class="mt-6 w-4/5 gap-10 m-auto flex filterSearch flex-wrap">
