@@ -42,7 +42,7 @@ function renderUstensils(ustensils) {
     ustensils.forEach(ustensil => {
         let div = document.createElement('div');
         div.innerHTML = `${ustensil}`;
-        div.classList.add('bg-white', 'p-4', 'w-60', 'flex', 'justify-between', 'items-center', 'cursor-pointer', 'hover:bg-primary-color', 'ease-in', 'duration-150');
+        div.classList.add('bg-white', 'p-4', 'w-60', 'flex', 'justify-between', 'items-center', 'cursor-pointer', 'hover:bg-primary-color', 'ease-in', 'duration-150', 'max-lg:w-44');
         inputUstensils.appendChild(div);
 
         div.addEventListener('click', () => {
@@ -57,9 +57,9 @@ function selectUstensil(ustensil) {
 
     divSelectedUstensil.innerHTML = `
         <div class="flex justify-center relative">
-            <div class="bg-primary-color p-4 w-auto pr-16 rounded-xl">${ustensil}</div>
+            <div class="bg-primary-color p-4 w-auto pr-16 rounded-xl max-md:text-xs max-500:w-28 max-md:w-32 max-md:h-11 max-md:p-3">${ustensil}</div>
             <div class="delete__ustensil">
-                <i class="fa-solid fa-xmark absolute text-xl top-5 right-5 cursor-pointer"></i>
+                <i class="fa-solid fa-xmark absolute text-xl top-5 right-5 cursor-pointer max-md:text-sm max-md:top-4 max-md:right-3"></i>
             </div>
         </div>
     `;

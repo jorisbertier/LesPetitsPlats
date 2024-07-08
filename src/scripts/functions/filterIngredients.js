@@ -50,7 +50,7 @@ function renderIngredients(ingredients) {
     ingredients.forEach(ingredient => {
         let div = document.createElement('div');
         div.innerHTML = `${ingredient}`;
-        div.classList.add('bg-white', 'p-4', 'w-60', 'flex', 'justify-between', 'items-center', 'cursor-pointer', 'hover:bg-primary-color', 'ease-in', 'duration-100', 'max-sm:w-28', 'max-sm:text-xs', 'max-sm:p-2');
+        div.classList.add('bg-white', 'p-4', 'w-60', 'flex', 'justify-between', 'items-center', 'cursor-pointer', 'hover:bg-primary-color', 'ease-in', 'duration-100', 'max-lg:w-44', 'max-sm:w-28', 'max-sm:text-xs', 'max-sm:p-2');
         inputIngredients.appendChild(div);
 
         // Add click event listener for each ingredient
@@ -67,10 +67,10 @@ function selectIngredient(ingredient) {
 
     // Create a div for the selected ingredient
     divSelectedIngredient.innerHTML = `
-        <div class="flex justify-center relative">
-            <div class="bg-primary-color p-4 w-auto pr-16 rounded-xl">${ingredient}</div>
+        <div class="flex justify-center relative rounded-xl">
+            <div class="bg-primary-color p-4 w-auto pr-16 rounded-xl max-md:text-xs max-500:w-28 max-md:w-32 max-md:h-11 max-md:p-3">${ingredient}</div>
             <div class="delete__ingredient">
-                <i class="fa-solid fa-xmark absolute text-xl top-5 right-5 cursor-pointer"></i>
+                <i class="fa-solid fa-xmark absolute text-xl top-5 right-5 cursor-pointer max-md:text-sm max-md:top-4 max-md:right-3"></i>
             </div>
         </div>
     `;
