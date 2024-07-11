@@ -102,3 +102,11 @@ function renderRecipes(recipes) {
         wrapperRecipes.appendChild(cardElement);
     });
 }
+
+export function removeSearchUstensil() {
+    let deleteSearchUstensil = document.querySelector('.xmark_ustensil')
+
+    deleteSearchUstensil.addEventListener('click', ()=> {
+        inputSearchUstensils.value = ''
+    })
+}

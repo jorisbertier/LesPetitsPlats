@@ -100,3 +100,12 @@ function renderRecipes(recipes) {
         wrapperRecipes.appendChild(cardElement);
     });
 }
+
+
+export function removeSearchAppliance() {
+    let deleteSearchAppliance = document.querySelector('.xmark_appliance')
+
+    deleteSearchAppliance.addEventListener('click', ()=> {
+        inputSearchAppliance.value = ''
+    })
+}

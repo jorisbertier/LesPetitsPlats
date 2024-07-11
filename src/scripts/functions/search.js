@@ -1,8 +1,19 @@
 let messageSearchError = document.querySelector('.search_error')
 
 export function searchByTitle(recipes, query) {
-    // Convert query to lower case
-    query = query.toLowerCase()
+
+    //function replace caracter by entity html for prevent fail xss
+    function escapeHtml(unsafe) {
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    // Convert query lowCase & escape special caracters
+    query = escapeHtml(query.toLowerCase());
 
     //Filter by Name || Description || Ingredient
     // if(query.length >= 3) {
@@ -30,17 +41,6 @@ export function searchByTitle(recipes, query) {
     // }
 
 }  
-
-// Remove search at the click, re initialiaze search to ""
-export function removeSearch(inputSearchId, removeSearchClass) {
-    let inputSearch = document.getElementById(inputSearchId);
-    let removeSearch = document.querySelector(removeSearchClass)
-
-    removeSearch.addEventListener('click', ()=> {
-        inputSearch.value = ""
-    })
-}
-
 
 export function filterBySelectedIngredients(recipes, selectedIngredients) {
     if (selectedIngredients.length > 0) {

@@ -119,3 +119,11 @@ function renderRecipes(recipes) {
         wrapperRecipes.appendChild(cardElement);
     });
 }
+
+export function removeSearchIngredient() {
+    let deleteSearchIngredient = document.querySelector('.xmark_ingredient')
+
+    deleteSearchIngredient.addEventListener('click', ()=> {
+        inputSearchIngredients.value = ''
+    })
+}

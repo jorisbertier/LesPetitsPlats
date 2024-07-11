@@ -3,6 +3,9 @@ import { get } from "../api/api.js";
 import { searchByTitle, filterBySelectedIngredients, filterBySelectedUstensils, filterBySelectedAppliances } from "./search.js";
 import { totalRecipes } from "./totalRecipes.js";
 import { getSelectedIngredients, getSelectedUstensils, getSelectedAppliances } from "./filter.js";
+import { removeSearchIngredient } from "./filterIngredients.js";
+import { removeSearchUstensil } from "./filterUstensils.js";
+import { removeSearchAppliance } from "./filterAppliances.js";
 
 // Sélectionne l'élément DOM
 let inputSearch = document.getElementById('recipe');
@@ -33,3 +36,21 @@ function renderRecipes(recipes) {
         wrapperRecipes.appendChild(cardElement);
     });
 }
+
+// Remove search at the click, re initialiaze search to ""
+async function removeSearch() {
+    const recipes = await get("/data/recipes.js");
+    let inputSearch = document.getElementById('recipe');
+    let removeSearch = document.querySelector('.remove__result')
+
+    removeSearch.addEventListener('click', ()=> {
+        inputSearch.value = ""
+        renderRecipes(recipes)
+        totalRecipes(recipes.length)
+    })
+}
+
+removeSearch()
+removeSearchIngredient()
+removeSearchUstensil()
+removeSearchAppliance()
