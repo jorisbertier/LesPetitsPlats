@@ -20,7 +20,6 @@ export async function displayRecipes() {
         filteredRecipes = filterBySelectedIngredients(filteredRecipes, getSelectedIngredients());
         filteredRecipes = filterBySelectedUstensils(filteredRecipes, getSelectedUstensils());
         filteredRecipes = filterBySelectedAppliances(filteredRecipes, getSelectedAppliances())
-    
         renderRecipes(filteredRecipes);
         totalRecipes(filteredRecipes.length);
     });

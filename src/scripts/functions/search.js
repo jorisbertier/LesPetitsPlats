@@ -42,10 +42,14 @@ export function searchByTitle(recipes, query) {
 
 }  
 
+// Function to filter recipes by selected ingredients
 export function filterBySelectedIngredients(recipes, selectedIngredients) {
+    // Check if there are any selected ingredients
     if (selectedIngredients.length > 0) {
-        return recipes.filter(recipe => 
-            selectedIngredients.every(selectedIngredient => 
+        return recipes.filter(recipe =>
+            // Ensure every selected ingredient is present in the recipe's ingredients
+            selectedIngredients.every(selectedIngredient =>
+                // Check if the recipe has an ingredient that matches the selected ingredient
                 recipe.ingredients.some(ingredient => 
                     ingredient.ingredient.toLowerCase() === selectedIngredient.toLowerCase()
                 )
