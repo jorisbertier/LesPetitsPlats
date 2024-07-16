@@ -1,6 +1,8 @@
 let messageSearchError = document.querySelector('.search_error')
+let messageSearchErrorSection = document.querySelector('.search_error-section')
 
 export function searchByTitle(recipes, query) {
+    console.log(messageSearchErrorSection)
 
     //function replace caracter by entity html for prevent fail xss
     function escapeHtml(unsafe) {
@@ -26,16 +28,18 @@ export function searchByTitle(recipes, query) {
             ...filteredByName
         ];
         messageSearchError.innerHTML = ""
+        messageSearchErrorSection.innerHTML = ``
         //Delete duplicate
         allRecipes = [... new Set(allRecipes)]
         if(allRecipes.length === 0) {
-            messageSearchError.innerHTML = "Aucun résultat ne correspond à votre recherche"
+            messageSearchErrorSection.innerHTML = ` Aucune recette ne contient ‘${query}’ vous pouvez chercher « tarte aux pommes », « poisson », etc`
         } else {
-            messageSearchError.innerHTML = ""
+            messageSearchErrorSection.innerHTML = ``
         }
         return allRecipes
     } else {
         messageSearchError.innerHTML = "Vous devez entrer au minimum 3 caractères pour faire la recherche"
+        messageSearchErrorSection.innerHTML = ``
         return recipes
     }
 

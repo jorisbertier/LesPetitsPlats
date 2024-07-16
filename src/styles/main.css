@@ -759,6 +759,10 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(239 68 68 / var(--tw-bg-opacity));
 }
+.bg-red-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
+}
 .bg-header-image {
   background-image: url('/src/img/lampos-aritonang-24gR_9lCdes-unsplash.jpg');
 }
