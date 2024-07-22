@@ -3,6 +3,7 @@ import { searchByTitle, filterBySelectedUstensils, filterBySelectedAppliances, f
 import { totalRecipes } from "./totalRecipes.js";
 import { RecipeCard } from "../templates/RecipeCard.js";
 import { addUstensil, removeUstensil, getSelectedIngredients, getSelectedUstensils, getSelectedAppliances } from "./filter.js";
+import { updateAvailableFilters } from "./updateAvailableFilters.js";
 
 let inputSearchUstensils = document.querySelector('.search__input--ustensils');
 let inputSearch = document.getElementById('recipe');
@@ -99,31 +100,10 @@ async function updateRecipes() {
     filteredRecipes = filterBySelectedUstensils(filteredRecipes, getSelectedUstensils());
     filteredRecipes = filterBySelectedAppliances(filteredRecipes, getSelectedAppliances());
 
-    // Mise à jour des listes d'ustensiles disponibles
-    updateAvailableUstensils(filteredRecipes);
+    updateAvailableFilters(filteredRecipes);
 
     totalRecipes(filteredRecipes.length);
     renderRecipes(filteredRecipes);
-}
-
-// Function to update available ustensils based on filtered recipes
-function updateAvailableUstensils(filteredRecipes) {
-    let ustensils = [];
-
-    filteredRecipes.forEach(recipe => {
-        recipe.ustensils.forEach(ustensil => {
-            ustensils.push(ustensil.trim().toLowerCase());
-        });
-    });
-
-    // Remove duplicates
-    ustensils = [...new Set(ustensils)];
-
-    // Filter out already selected ustensils
-    ustensils = ustensils.filter(ustensil => !selectedUstensils.includes(ustensil));
-
-    // Render updated suggestions for ustensils
-    renderUstensils(ustensils);
 }
 
 function renderRecipes(recipes) {

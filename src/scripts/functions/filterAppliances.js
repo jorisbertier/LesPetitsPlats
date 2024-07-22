@@ -3,6 +3,7 @@ import { searchByTitle, filterBySelectedAppliances, filterBySelectedIngredients,
 import { totalRecipes } from "./totalRecipes.js";
 import { RecipeCard } from "../templates/RecipeCard.js";
 import { addAppliance, removeAppliance, getSelectedIngredients, getSelectedUstensils, getSelectedAppliances } from "./filter.js";
+import { updateAvailableFilters } from "./updateAvailableFilters.js";
 
 let inputSearchAppliance = document.querySelector('.search__input--appliances');
 let inputSearch = document.getElementById('recipe');
@@ -97,29 +98,10 @@ async function updateRecipes() {
     filteredRecipes = filterBySelectedUstensils(filteredRecipes, getSelectedUstensils());
     filteredRecipes = filterBySelectedAppliances(filteredRecipes, getSelectedAppliances());
 
-    // Mise à jour des listes d'appareils disponibles
-    updateAvailableAppliances(filteredRecipes);
+    updateAvailableFilters(filteredRecipes);
 
     totalRecipes(filteredRecipes.length);
     renderRecipes(filteredRecipes);
-}
-
-// Function to update available appliances based on filtered recipes
-function updateAvailableAppliances(filteredRecipes) {
-    let appliances = [];
-
-    filteredRecipes.forEach(recipe => {
-        appliances.push(recipe.appliance.trim().toLowerCase());
-    });
-
-    // Remove duplicates
-    appliances = [...new Set(appliances)];
-
-    // Filter out already selected appliances
-    appliances = appliances.filter(appliance => !selectedAppliances.includes(appliance));
-
-    // Render updated suggestions for appliances
-    renderAppliances(appliances);
 }
 
 function renderRecipes(recipes) {

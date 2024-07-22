@@ -110,7 +110,7 @@ async function updateRecipes() {
     filteredRecipes = filterBySelectedUstensils(filteredRecipes, getSelectedUstensils()); // Utilise les ustensiles sélectionnés
     filteredRecipes = filterBySelectedAppliances(filteredRecipes, getSelectedAppliances());
 
-    // Mise à jour des listes d'ingrédients disponibles
+    // Updated lists of available ingredients
     updateAvailableFilters(filteredRecipes);
 
     totalRecipes(filteredRecipes.length);
