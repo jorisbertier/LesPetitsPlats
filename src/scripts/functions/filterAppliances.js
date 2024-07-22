@@ -6,32 +6,39 @@ import { addAppliance, removeAppliance, getSelectedIngredients, getSelectedUsten
 
 let inputSearchAppliance = document.querySelector('.search__input--appliances');
 let inputSearch = document.getElementById('recipe');
-let appliances = [];
+
+// Initialize arrays to store all appliances and selected appliances
+let allAppliances = [];
+let selectedAppliances = [];
+
+// Function to handle appliance search input and render suggestions
 export async function displayAppliances() {
-    appliances = await getAllAppliances();
+    allAppliances = await getAllAppliances();
 
     inputSearchAppliance.addEventListener('input', () => {
-        let allAppliancesFilterByValue = appliances.filter(appliance =>
+        let allAppliancesFilterByValue = allAppliances.filter(appliance =>
             appliance.toLowerCase().includes(inputSearchAppliance.value.toLowerCase())
         );
         renderAppliances(allAppliancesFilterByValue);
     });
 
-    renderAppliances(appliances);
+    renderAppliances(allAppliances);
 }
 
+// get all Appliances
 async function getAllAppliances() {
     const recipes = await get("/data/recipes.js");
-    let allAppliances = [];
+    let appliances = [];
 
     recipes.forEach(recipe => {
-        allAppliances.push(recipe.appliance.trim().toLowerCase());
+        appliances.push(recipe.appliance.trim().toLowerCase());
     });
 
-    allAppliances = [...new Set(allAppliances)];
-    return allAppliances;
+    appliances = [...new Set(appliances)];
+    return appliances;
 }
 
+// Function to render appliance suggestions
 function renderAppliances(appliances) {
     let inputAppliances = document.querySelector('.results__appliances');
     inputAppliances.innerHTML = "";
@@ -48,6 +55,7 @@ function renderAppliances(appliances) {
     });
 }
 
+// Function to handle the selection of an appliance
 function selectAppliance(appliance) {
     let wrapperAppliances = document.querySelector('.filterSearch');
     let divSelectedAppliance = document.createElement('div');
@@ -63,20 +71,23 @@ function selectAppliance(appliance) {
     wrapperAppliances.appendChild(divSelectedAppliance);
 
     addAppliance(appliance);
-    appliances = appliances.filter(app => app != appliance);
-    renderAppliances(appliances.filter(app => app.toLowerCase().includes(inputSearchAppliance.value.toLowerCase())));
+    selectedAppliances.push(appliance);
+    allAppliances = allAppliances.filter(app => app !== appliance);
+    renderAppliances(allAppliances.filter(app => app.toLowerCase().includes(inputSearchAppliance.value.toLowerCase())));
     updateRecipes();
 
     let deleteButton = divSelectedAppliance.querySelector('.delete__appliance');
     deleteButton.addEventListener('click', () => {
         wrapperAppliances.removeChild(divSelectedAppliance);
-        appliances.push(appliance);
-        removeAppliance(appliance)
-        renderAppliances(appliances.filter(app => app.toLowerCase().includes(inputSearchAppliance.value.toLowerCase())));
+        allAppliances.push(appliance);
+        removeAppliance(appliance);
+        selectedAppliances = selectedAppliances.filter(app => app !== appliance);
+        renderAppliances(allAppliances.filter(app => app.toLowerCase().includes(inputSearchAppliance.value.toLowerCase())));
         updateRecipes();
     });
 }
 
+// Function to update recipes displayed based on selected appliances
 async function updateRecipes() {
     const recipes = await get("/data/recipes.js");
     let query = inputSearch.value;
@@ -84,10 +95,31 @@ async function updateRecipes() {
     let filteredRecipes = searchByTitle(recipes, query);
     filteredRecipes = filterBySelectedIngredients(filteredRecipes, getSelectedIngredients());
     filteredRecipes = filterBySelectedUstensils(filteredRecipes, getSelectedUstensils());
-    filteredRecipes = filterBySelectedAppliances(filteredRecipes, getSelectedAppliances())
+    filteredRecipes = filterBySelectedAppliances(filteredRecipes, getSelectedAppliances());
+
+    // Mise à jour des listes d'appareils disponibles
+    updateAvailableAppliances(filteredRecipes);
 
     totalRecipes(filteredRecipes.length);
     renderRecipes(filteredRecipes);
+}
+
+// Function to update available appliances based on filtered recipes
+function updateAvailableAppliances(filteredRecipes) {
+    let appliances = [];
+
+    filteredRecipes.forEach(recipe => {
+        appliances.push(recipe.appliance.trim().toLowerCase());
+    });
+
+    // Remove duplicates
+    appliances = [...new Set(appliances)];
+
+    // Filter out already selected appliances
+    appliances = appliances.filter(appliance => !selectedAppliances.includes(appliance));
+
+    // Render updated suggestions for appliances
+    renderAppliances(appliances);
 }
 
 function renderRecipes(recipes) {
@@ -100,7 +132,6 @@ function renderRecipes(recipes) {
         wrapperRecipes.appendChild(cardElement);
     });
 }
-
 
 export function removeSearchAppliance() {
     let deleteSearchAppliance = document.querySelector('.xmark_appliance')
