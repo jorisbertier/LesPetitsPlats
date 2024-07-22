@@ -41,7 +41,7 @@ async function getAllUstensils() {
 }
 
 // Function to render ustensil suggestions
-function renderUstensils(ustensils) {
+export function renderUstensils(ustensils) {
     let inputUstensils = document.querySelector('.results__ustensils');
     inputUstensils.innerHTML = "";
 

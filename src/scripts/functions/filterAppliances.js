@@ -39,7 +39,7 @@ async function getAllAppliances() {
 }
 
 // Function to render appliance suggestions
-function renderAppliances(appliances) {
+export function renderAppliances(appliances) {
     let inputAppliances = document.querySelector('.results__appliances');
     inputAppliances.innerHTML = "";
 

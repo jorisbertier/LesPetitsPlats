@@ -3,6 +3,7 @@ import { searchByTitle, filterBySelectedIngredients, filterBySelectedAppliances,
 import { totalRecipes } from "./totalRecipes.js";
 import { RecipeCard } from "../templates/RecipeCard.js";
 import { addIngredient, removeIngredient, getSelectedIngredients, getSelectedUstensils, getSelectedAppliances } from "./filter.js";
+import { updateAvailableFilters } from "./updateAvailableFilters.js";
 
 let inputSearchIngredients = document.querySelector('.search__input');
 let inputSearch = document.getElementById('recipe');
@@ -43,7 +44,7 @@ async function getAllIngredients() {
 }
 
 // Function to render ingredients suggestions
-function renderIngredients(ingredients) {
+export function renderIngredients(ingredients) {
     let inputIngredients = document.querySelector('.results');
     inputIngredients.innerHTML = "";
 
@@ -110,31 +111,40 @@ async function updateRecipes() {
     filteredRecipes = filterBySelectedAppliances(filteredRecipes, getSelectedAppliances());
 
     // Mise à jour des listes d'ingrédients disponibles
-    updateAvailableIngredients(filteredRecipes);
+    updateAvailableFilters(filteredRecipes);
 
     totalRecipes(filteredRecipes.length);
     renderRecipes(filteredRecipes);
 }
 
-// Function to update available ingredients based on filtered recipes
-function updateAvailableIngredients(filteredRecipes) {
-    let ingredients = [];
+// // Function to update available filters based on filtered recipes
+// async function updateAvailableFilters(filteredRecipes) {
+//     let ingredients = [];
+//     let ustensils = [];
+//     let appliances = [];
 
-    filteredRecipes.forEach(recipe => {
-        recipe.ingredients.forEach(ingredient => {
-            ingredients.push(ingredient.ingredient.trim().toLowerCase());
-        });
-    });
+//     filteredRecipes.forEach(recipe => {
+//         recipe.ingredients.forEach(ing => {
+//             ingredients.push(ing.ingredient.trim().toLowerCase());
+//         });
+//         recipe.ustensils.forEach(ust => {
+//             ustensils.push(ust.trim().toLowerCase());
+//         });
+//         appliances.push(recipe.appliance.trim().toLowerCase());
+//     });
 
-    // Remove duplicates
-    ingredients = [...new Set(ingredients)];
+//     ingredients = [...new Set(ingredients)];
+//     ustensils = [...new Set(ustensils)];
+//     appliances = [...new Set(appliances)];
 
-    // Filter out already selected ingredients
-    ingredients = ingredients.filter(ingredient => !selectedIngredients.includes(ingredient));
+//     ingredients = ingredients.filter(ing => !selectedIngredients.includes(ing));
+//     ustensils = ustensils.filter(ust => !getSelectedUstensils().includes(ust));
+//     appliances = appliances.filter(app => !getSelectedAppliances().includes(app));
 
-    // Render updated suggestions for ingredients
-    renderIngredients(ingredients);
-}
+//     renderIngredients(ingredients);
+//     renderUstensils(ustensils);
+//     renderAppliances(appliances);
+// }
 
 function renderRecipes(recipes) {
     let wrapperRecipes = document.querySelector('.wrapper__recipes');
