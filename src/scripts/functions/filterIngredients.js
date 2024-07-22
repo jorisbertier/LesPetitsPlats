@@ -3,7 +3,7 @@ import { searchByTitle, filterBySelectedIngredients, filterBySelectedAppliances,
 import { totalRecipes } from "./totalRecipes.js";
 import { RecipeCard } from "../templates/RecipeCard.js";
 import { addIngredient, removeIngredient, getSelectedIngredients, getSelectedUstensils, getSelectedAppliances } from "./filter.js";
-import { updateAvailableFilters } from "./updateAvailableFilters.js";
+import { updateAvailableFilters, updateAvailableIngredients, getCurrentIngredients } from "./updateAvailableFilters.js";
 
 let inputSearchIngredients = document.querySelector('.search__input');
 let inputSearch = document.getElementById('recipe');
@@ -16,12 +16,22 @@ let selectedIngredients = [];
 export async function displayIngredients() {
     allIngredients = await getAllIngredients(); // Get all unique ingredients
 
-    // Add event listener to the ingredient search input
     inputSearchIngredients.addEventListener('input', () => {
-        let allIngredientsFilterByValue = allIngredients.filter(ingredient =>
-            ingredient.toLowerCase().includes(inputSearchIngredients.value.toLowerCase())
-        );
-        renderIngredients(allIngredientsFilterByValue); // Render filtered ingredient suggestions
+        const currentIngredients = getCurrentIngredients(); // Get currently available ingredients
+
+        if(selectedIngredients.length !== 0 ) {
+            let filteredIngredients = currentIngredients.filter(ingredient =>
+                ingredient.toLowerCase().includes(inputSearchIngredients.value.toLowerCase())
+            );
+            renderIngredients(filteredIngredients);
+
+        } else {
+            let allIngredientsFilterByValue = allIngredients.filter(ingredient =>
+                ingredient.toLowerCase().includes(inputSearchIngredients.value.toLowerCase())
+            );
+            renderIngredients(allIngredientsFilterByValue); // Render filtered ingredient suggestions
+
+        }
     });
 
     renderIngredients(allIngredients); // Initial rendering of all ingredient suggestions
@@ -112,10 +122,13 @@ async function updateRecipes() {
 
     // Updated lists of available ingredients
     updateAvailableFilters(filteredRecipes);
+    updateAvailableIngredients(filteredRecipes)
 
     totalRecipes(filteredRecipes.length);
     renderRecipes(filteredRecipes);
 }
+
+
 
 function renderRecipes(recipes) {
     let wrapperRecipes = document.querySelector('.wrapper__recipes');

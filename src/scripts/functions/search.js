@@ -2,7 +2,6 @@ let messageSearchError = document.querySelector('.search_error')
 let messageSearchErrorSection = document.querySelector('.search_error-section')
 
 export function searchByTitle(recipes, query) {
-    console.log(messageSearchErrorSection)
 
     //function replace caracter by entity html for prevent fail xss
     function escapeHtml(unsafe) {

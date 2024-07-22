@@ -4,6 +4,10 @@ import { renderIngredients } from "./filterIngredients.js";
 import { getSelectedIngredients, getSelectedUstensils, getSelectedAppliances } from './filter.js';
 
 
+let currentIngredients = [];
+let currentUstensils = [];
+let currentAppliances = [];
+
 // Function to update available filters based on filtered recipes
 export async function updateAvailableFilters(filteredRecipes) {
     let ingredients = [];
@@ -28,7 +32,32 @@ export async function updateAvailableFilters(filteredRecipes) {
     ustensils = ustensils.filter(ust => !getSelectedUstensils().includes(ust));
     appliances = appliances.filter(app => !getSelectedAppliances().includes(app));
 
-    renderIngredients(ingredients);
-    renderUstensils(ustensils);
-    renderAppliances(appliances);
+    currentIngredients = ingredients;
+    currentUstensils = ustensils;
+    currentAppliances = appliances;
+
+    renderIngredients(currentIngredients);
+    renderUstensils(currentUstensils);
+    renderAppliances(currentAppliances);
+}
+
+export function updateAvailableIngredients(filteredRecipes) {
+    let ingredients = [];
+
+    filteredRecipes.forEach(recipe => {
+        recipe.ingredients.forEach(ing => {
+            ingredients.push(ing.ingredient.trim().toLowerCase());
+        });
+    });
+
+    ingredients = [...new Set(ingredients)];
+    ingredients = ingredients.filter(ing => !getSelectedIngredients().includes(ing));
+
+    currentIngredients = ingredients;
+
+    renderIngredients(currentIngredients);
+}
+
+export function getCurrentIngredients() {
+    return currentIngredients;
 }
