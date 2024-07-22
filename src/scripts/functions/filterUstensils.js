@@ -6,35 +6,41 @@ import { addUstensil, removeUstensil, getSelectedIngredients, getSelectedUstensi
 
 let inputSearchUstensils = document.querySelector('.search__input--ustensils');
 let inputSearch = document.getElementById('recipe');
-let ustensils = [];
 
+// Initialize arrays to store all ustensils and selected ustensils
+let allUstensils = [];
+let selectedUstensils = [];
+
+// Function to handle ustensil search input and render suggestions
 export async function displayUstensils() {
-    ustensils = await getAllUstensils();
+    allUstensils = await getAllUstensils();
 
     inputSearchUstensils.addEventListener('input', () => {
-        let allUstensilsFilterByValue = ustensils.filter(ustensil =>
+        let allUstensilsFilterByValue = allUstensils.filter(ustensil =>
             ustensil.toLowerCase().includes(inputSearchUstensils.value.toLowerCase())
         );
         renderUstensils(allUstensilsFilterByValue);
     });
 
-    renderUstensils(ustensils);
+    renderUstensils(allUstensils);
 }
 
+// get all Ustensils
 async function getAllUstensils() {
     const recipes = await get("/data/recipes.js");
-    let allUstensils = [];
+    let ustensils = [];
 
     recipes.forEach(recipe => {
         recipe.ustensils.forEach(ustensil => {
-            allUstensils.push(ustensil.trim().toLowerCase());
+            ustensils.push(ustensil.trim().toLowerCase());
         });
     });
 
-    allUstensils = [...new Set(allUstensils)];
-    return allUstensils;
+    ustensils = [...new Set(ustensils)];
+    return ustensils;
 }
 
+// Function to render ustensil suggestions
 function renderUstensils(ustensils) {
     let inputUstensils = document.querySelector('.results__ustensils');
     inputUstensils.innerHTML = "";
@@ -51,6 +57,7 @@ function renderUstensils(ustensils) {
     });
 }
 
+// Function to handle the selection of an ustensil
 function selectUstensil(ustensil) {
     let wrapperUstensils = document.querySelector('.filterSearch');
     let divSelectedUstensil = document.createElement('div');
@@ -66,30 +73,57 @@ function selectUstensil(ustensil) {
     wrapperUstensils.appendChild(divSelectedUstensil);
 
     addUstensil(ustensil);
-    ustensils = ustensils.filter(ust => ust != ustensil);
-    renderUstensils(ustensils.filter(ust => ust.toLowerCase().includes(inputSearchUstensils.value.toLowerCase())));
+    selectedUstensils.push(ustensil);
+    allUstensils = allUstensils.filter(ust => ust !== ustensil);
+    renderUstensils(allUstensils.filter(ust => ust.toLowerCase().includes(inputSearchUstensils.value.toLowerCase())));
     updateRecipes();
 
     let deleteButton = divSelectedUstensil.querySelector('.delete__ustensil');
     deleteButton.addEventListener('click', () => {
         wrapperUstensils.removeChild(divSelectedUstensil);
-        ustensils.push(ustensil);
-        removeUstensil(ustensil)
-        renderUstensils(ustensils.filter(ust => ust.toLowerCase().includes(inputSearchUstensils.value.toLowerCase())));
+        allUstensils.push(ustensil);
+        removeUstensil(ustensil);
+        selectedUstensils = selectedUstensils.filter(ust => ust !== ustensil);
+        renderUstensils(allUstensils.filter(ust => ust.toLowerCase().includes(inputSearchUstensils.value.toLowerCase())));
         updateRecipes();
     });
 }
 
+// Function to update recipes displayed based on selected ustensils
 async function updateRecipes() {
     const recipes = await get("/data/recipes.js");
     let query = inputSearch.value;
 
     let filteredRecipes = searchByTitle(recipes, query);
-    filteredRecipes = filterBySelectedIngredients(filteredRecipes, getSelectedIngredients()); // Utilise les ingrédients sélectionnés
-    filteredRecipes = filterBySelectedUstensils(filteredRecipes, getSelectedUstensils()); // Utilise les ustensiles sélectionnés
-    filteredRecipes = filterBySelectedAppliances(filteredRecipes, getSelectedAppliances())
+    filteredRecipes = filterBySelectedIngredients(filteredRecipes, getSelectedIngredients());
+    filteredRecipes = filterBySelectedUstensils(filteredRecipes, getSelectedUstensils());
+    filteredRecipes = filterBySelectedAppliances(filteredRecipes, getSelectedAppliances());
+
+    // Mise à jour des listes d'ustensiles disponibles
+    updateAvailableUstensils(filteredRecipes);
+
     totalRecipes(filteredRecipes.length);
     renderRecipes(filteredRecipes);
+}
+
+// Function to update available ustensils based on filtered recipes
+function updateAvailableUstensils(filteredRecipes) {
+    let ustensils = [];
+
+    filteredRecipes.forEach(recipe => {
+        recipe.ustensils.forEach(ustensil => {
+            ustensils.push(ustensil.trim().toLowerCase());
+        });
+    });
+
+    // Remove duplicates
+    ustensils = [...new Set(ustensils)];
+
+    // Filter out already selected ustensils
+    ustensils = ustensils.filter(ustensil => !selectedUstensils.includes(ustensil));
+
+    // Render updated suggestions for ustensils
+    renderUstensils(ustensils);
 }
 
 function renderRecipes(recipes) {

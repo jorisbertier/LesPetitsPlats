@@ -8,37 +8,38 @@ let inputSearchIngredients = document.querySelector('.search__input');
 let inputSearch = document.getElementById('recipe');
 
 // Initialize arrays to store all ingredients and selected ingredients
-let ingredients = [];
+let allIngredients = [];
+let selectedIngredients = [];
 
 // Function to handle ingredient search input and render suggestions
 export async function displayIngredients() {
-    ingredients = await getAllIngredients(); // Get all unique ingredients
+    allIngredients = await getAllIngredients(); // Get all unique ingredients
 
     // Add event listener to the ingredient search input
     inputSearchIngredients.addEventListener('input', () => {
-        let allIngredientsFilterByValue = ingredients.filter(ingredient =>
+        let allIngredientsFilterByValue = allIngredients.filter(ingredient =>
             ingredient.toLowerCase().includes(inputSearchIngredients.value.toLowerCase())
         );
         renderIngredients(allIngredientsFilterByValue); // Render filtered ingredient suggestions
     });
 
-    renderIngredients(ingredients); // Initial rendering of all ingredient suggestions
+    renderIngredients(allIngredients); // Initial rendering of all ingredient suggestions
 }
 
 // get all Ingredients
 async function getAllIngredients() {
     const recipes = await get("/data/recipes.js");
-    let allIngredients = [];
+    let ingredients = [];
 
     // Extract ingredients from each recipe
     recipes.forEach(recipe => {
         recipe.ingredients.forEach(ingredient => {
-            allIngredients.push(ingredient.ingredient.trim().toLowerCase()); // Add ingredient to the list
+            ingredients.push(ingredient.ingredient.trim().toLowerCase()); // Add ingredient to the list
         });
     });
 
-    allIngredients = [...new Set(allIngredients)]; // Remove duplicate ingredients
-    return allIngredients; // Return all ingredients without duplicate
+    ingredients = [...new Set(ingredients)]; // Remove duplicate ingredients
+    return ingredients; // Return all ingredients without duplicate
 }
 
 // Function to render ingredients suggestions
@@ -78,10 +79,11 @@ function selectIngredient(ingredient) {
 
     // Add the selected ingredient to the list of selected ingredients
     addIngredient(ingredient);
-    ingredients = ingredients.filter(ing => ing != ingredient);
+    selectedIngredients.push(ingredient);
+    allIngredients = allIngredients.filter(ing => ing !== ingredient);
 
-     // Remove the selected ingredient from the suggestions
-    renderIngredients(ingredients.filter(ing => ing.toLowerCase().includes(inputSearchIngredients.value.toLowerCase())));
+    // Remove the selected ingredient from the suggestions
+    renderIngredients(allIngredients.filter(ing => ing.toLowerCase().includes(inputSearchIngredients.value.toLowerCase())));
 
     // Update displayed recipes based on selected ingredients
     updateRecipes();
@@ -89,9 +91,10 @@ function selectIngredient(ingredient) {
     let deleteButton = divSelectedIngredient.querySelector('.delete__ingredient');
     deleteButton.addEventListener('click', () => {
         wrapperIngredients.removeChild(divSelectedIngredient);
-        ingredients.push(ingredient);
-        removeIngredient(ingredient); 
-        renderIngredients(ingredients.filter(ing => ing.toLowerCase().includes(inputSearchIngredients.value.toLowerCase())));
+        allIngredients.push(ingredient);
+        removeIngredient(ingredient);
+        selectedIngredients = selectedIngredients.filter(ing => ing !== ingredient);
+        renderIngredients(allIngredients.filter(ing => ing.toLowerCase().includes(inputSearchIngredients.value.toLowerCase())));
         updateRecipes();
     });
 }
@@ -104,9 +107,33 @@ async function updateRecipes() {
     let filteredRecipes = searchByTitle(recipes, query);
     filteredRecipes = filterBySelectedIngredients(filteredRecipes, getSelectedIngredients()); // Utilise les ingrédients sélectionnés
     filteredRecipes = filterBySelectedUstensils(filteredRecipes, getSelectedUstensils()); // Utilise les ustensiles sélectionnés
-    filteredRecipes = filterBySelectedAppliances(filteredRecipes, getSelectedAppliances())
+    filteredRecipes = filterBySelectedAppliances(filteredRecipes, getSelectedAppliances());
+
+    // Mise à jour des listes d'ingrédients disponibles
+    updateAvailableIngredients(filteredRecipes);
+
     totalRecipes(filteredRecipes.length);
     renderRecipes(filteredRecipes);
+}
+
+// Function to update available ingredients based on filtered recipes
+function updateAvailableIngredients(filteredRecipes) {
+    let ingredients = [];
+
+    filteredRecipes.forEach(recipe => {
+        recipe.ingredients.forEach(ingredient => {
+            ingredients.push(ingredient.ingredient.trim().toLowerCase());
+        });
+    });
+
+    // Remove duplicates
+    ingredients = [...new Set(ingredients)];
+
+    // Filter out already selected ingredients
+    ingredients = ingredients.filter(ingredient => !selectedIngredients.includes(ingredient));
+
+    // Render updated suggestions for ingredients
+    renderIngredients(ingredients);
 }
 
 function renderRecipes(recipes) {
@@ -123,7 +150,7 @@ function renderRecipes(recipes) {
 export function removeSearchIngredient() {
     let deleteSearchIngredient = document.querySelector('.xmark_ingredient')
 
-    deleteSearchIngredient.addEventListener('click', ()=> {
+    deleteSearchIngredient.addEventListener('click', () => {
         inputSearchIngredients.value = ''
     })
 }
