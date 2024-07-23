@@ -21,8 +21,9 @@ export async function displayUstensils() {
         const selectedUstensils = getSelectedUstensils();
         const selectedIngredients = getSelectedIngredients();
         const selectedAppliances = getSelectedAppliances();
+        const mainSearchValue = inputSearch.value.trim().toLowerCase();
 
-        if (selectedUstensils.length !== 0 || selectedIngredients.length !== 0 || selectedAppliances.length !==0) {
+        if (selectedUstensils.length !== 0 || selectedIngredients.length !== 0 || selectedAppliances.length !==0 || mainSearchValue !== 0) {
             let filteredUstensils = currentUstensils.filter(ustensil =>
                 ustensil.toLowerCase().includes(inputSearchUstensils.value.toLowerCase())
             );

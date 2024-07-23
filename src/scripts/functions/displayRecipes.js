@@ -48,6 +48,7 @@ async function removeSearch() {
         inputSearch.value = ""
         renderRecipes(recipes)
         totalRecipes(recipes.length)
+        updateAvailableFilters(recipes);
     })
 }
 

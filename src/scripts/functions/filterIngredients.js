@@ -20,8 +20,9 @@ export async function displayIngredients() {
         const currentIngredients = getCurrentIngredients(); // Get currently available ingredients
         const selectedUstensils = getSelectedUstensils();
         const selectAppliances = getSelectedAppliances()
+        const mainSearchValue = inputSearch.value.trim().toLowerCase();
 
-        if(selectedIngredients.length !== 0 || selectedUstensils.length !== 0 || selectAppliances.length !== 0) {
+        if(selectedIngredients.length !== 0 || selectedUstensils.length !== 0 || selectAppliances.length !== 0 || mainSearchValue !== "") {
             let filteredIngredients = currentIngredients.filter(ingredient =>
                 ingredient.toLowerCase().includes(inputSearchIngredients.value.toLowerCase())
             );
