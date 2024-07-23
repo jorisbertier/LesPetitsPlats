@@ -3,46 +3,42 @@ let messageSearchErrorSection = document.querySelector('.search_error-section')
 
 export function searchByTitle(recipes, query) {
 
-    //function replace caracter by entity html for prevent fail xss
-    function escapeHtml(unsafe) {
-        return unsafe
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-    }
+    // Convert query to lowercase
+    query = query.toLowerCase();
 
-    // Convert query lowCase & escape special caracters
-    query = escapeHtml(query.toLowerCase());
+    let allRecipes = [];
 
-    //Filter by Name || Description || Ingredient
-    if(query.length >= 3) {
-        let filteredByIngredient = recipes.filter(recipe => recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(query)));
-        let filteredByDescription = recipes.filter(recipe => recipe.description.toLowerCase().includes(query));
-        let filteredByName = recipes.filter(recipe => recipe.name.toLowerCase().includes(query));
-        let allRecipes = [
-            ...filteredByIngredient,
-            ...filteredByDescription,
-            ...filteredByName
-        ];
-        messageSearchError.innerHTML = ""
-        messageSearchErrorSection.innerHTML = ``
-        //Delete duplicate
-        allRecipes = [... new Set(allRecipes)]
-        if(allRecipes.length === 0) {
-            messageSearchErrorSection.innerHTML = ` Aucune recette ne contient ‘${query}’ vous pouvez chercher « tarte aux pommes », « poisson », etc`
-        } else {
-            messageSearchErrorSection.innerHTML = ``
+    for (let recipe of recipes) {
+        let includeInResults = false;
+
+        // Check if the query is in the recipe's ingredients
+        for (let ingredient of recipe.ingredients) {
+            if (ingredient.ingredient.toLowerCase().includes(query)) {
+                includeInResults = true;
+                break;
+            }
         }
-        return allRecipes
-    } else {
-        messageSearchError.innerHTML = "Vous devez entrer au minimum 3 caractères pour faire la recherche"
-        messageSearchErrorSection.innerHTML = ``
-        return recipes
+
+        // Check if the query is in the recipe's description
+        if (!includeInResults && recipe.description.toLowerCase().includes(query)) {
+            includeInResults = true;
+        }
+
+        // Check if the query is in the recipe's name
+        if (!includeInResults && recipe.name.toLowerCase().includes(query)) {
+            includeInResults = true;
+        }
+
+        if (includeInResults) {
+            allRecipes.push(recipe);
+        }
     }
 
-}  
+    // Remove duplicates by converting to a Set and back to an Array
+    allRecipes = [...new Set(allRecipes)];
+
+    return allRecipes;
+}
 
 // Function to filter recipes by selected ingredients
 export function filterBySelectedIngredients(recipes, selectedIngredients) {
