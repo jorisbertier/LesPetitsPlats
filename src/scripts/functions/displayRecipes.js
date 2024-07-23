@@ -6,6 +6,7 @@ import { getSelectedIngredients, getSelectedUstensils, getSelectedAppliances } f
 import { removeSearchIngredient } from "./filterIngredients.js";
 import { removeSearchUstensil } from "./filterUstensils.js";
 import { removeSearchAppliance } from "./filterAppliances.js";
+import { updateAvailableFilters } from "./updateAvailableFilters.js";
 
 // Sélectionne l'élément DOM
 let inputSearch = document.getElementById('recipe');
@@ -22,6 +23,7 @@ export async function displayRecipes() {
         filteredRecipes = filterBySelectedAppliances(filteredRecipes, getSelectedAppliances())
         renderRecipes(filteredRecipes);
         totalRecipes(filteredRecipes.length);
+        updateAvailableFilters(filteredRecipes);
     });
 }
 
