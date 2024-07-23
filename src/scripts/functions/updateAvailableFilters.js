@@ -75,12 +75,29 @@ export function updateAvailableUstensils(filteredRecipes) {
     renderUstensils(currentUstensils);
 }
 
+export function updateAvailableAppliances(filteredRecipes) {
+    let appliances = [];
+
+    filteredRecipes.forEach(recipe => {
+        appliances.push(recipe.appliance.trim().toLowerCase());
+    });
+
+    appliances = [...new Set(appliances)];
+    appliances = appliances.filter(app => !getSelectedAppliances().includes(app));
+
+    currentAppliances = appliances;
+
+    renderAppliances(currentAppliances);
+}
+
 export function getCurrentIngredients() {
     return currentIngredients;
 }
+
 export function getCurrentUstensils() {
     return currentUstensils;
 }
+
 export function getCurrentAppliances() {
     return currentAppliances;
 }

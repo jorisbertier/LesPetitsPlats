@@ -3,7 +3,7 @@ import { searchByTitle, filterBySelectedAppliances, filterBySelectedIngredients,
 import { totalRecipes } from "./totalRecipes.js";
 import { RecipeCard } from "../templates/RecipeCard.js";
 import { addAppliance, removeAppliance, getSelectedIngredients, getSelectedUstensils, getSelectedAppliances } from "./filter.js";
-import { updateAvailableFilters } from "./updateAvailableFilters.js";
+import { updateAvailableFilters, updateAvailableAppliances, getCurrentAppliances } from "./updateAvailableFilters.js";
 
 let inputSearchAppliance = document.querySelector('.search__input--appliances');
 let inputSearch = document.getElementById('recipe');
@@ -17,10 +17,22 @@ export async function displayAppliances() {
     allAppliances = await getAllAppliances();
 
     inputSearchAppliance.addEventListener('input', () => {
-        let allAppliancesFilterByValue = allAppliances.filter(appliance =>
-            appliance.toLowerCase().includes(inputSearchAppliance.value.toLowerCase())
-        );
+
+        const currentAppliances = getCurrentAppliances();
+        const selectedUstensils = getSelectedUstensils();
+        const selectedIngredients = getSelectedIngredients();
+        
+        if(selectedAppliances.length !== 0 || selectedUstensils.length !==0 || selectedIngredients.length !== 0) {
+            let filteredAppliances = currentAppliances.filter(appliance =>
+                appliance.toLowerCase().includes(inputSearchAppliance.value.toLowerCase())
+            );
+            renderAppliances(filteredAppliances)
+        } else {
+                let allAppliancesFilterByValue = allAppliances.filter(appliance =>
+                appliance.toLowerCase().includes(inputSearchAppliance.value.toLowerCase())
+            );
         renderAppliances(allAppliancesFilterByValue);
+        }
     });
 
     renderAppliances(allAppliances);
@@ -99,6 +111,7 @@ async function updateRecipes() {
     filteredRecipes = filterBySelectedAppliances(filteredRecipes, getSelectedAppliances());
 
     updateAvailableFilters(filteredRecipes);
+    updateAvailableAppliances(filteredRecipes)
 
     totalRecipes(filteredRecipes.length);
     renderRecipes(filteredRecipes);

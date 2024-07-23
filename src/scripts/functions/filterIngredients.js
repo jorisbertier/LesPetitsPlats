@@ -19,8 +19,9 @@ export async function displayIngredients() {
     inputSearchIngredients.addEventListener('input', () => {
         const currentIngredients = getCurrentIngredients(); // Get currently available ingredients
         const selectedUstensils = getSelectedUstensils();
+        const selectAppliances = getSelectedAppliances()
 
-        if(selectedIngredients.length !== 0 || selectedUstensils.length !== 0) {
+        if(selectedIngredients.length !== 0 || selectedUstensils.length !== 0 || selectAppliances.length !== 0) {
             let filteredIngredients = currentIngredients.filter(ingredient =>
                 ingredient.toLowerCase().includes(inputSearchIngredients.value.toLowerCase())
             );
