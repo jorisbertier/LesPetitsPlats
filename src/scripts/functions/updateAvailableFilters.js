@@ -58,6 +58,29 @@ export function updateAvailableIngredients(filteredRecipes) {
     renderIngredients(currentIngredients);
 }
 
+export function updateAvailableUstensils(filteredRecipes) {
+    let ustensils = [];
+
+    filteredRecipes.forEach(recipe => {
+        recipe.ustensils.forEach(ust => {
+            ustensils.push(ust.trim().toLowerCase());
+        });
+    });
+
+    ustensils = [...new Set(ustensils)];
+    ustensils = ustensils.filter(ust => !getSelectedUstensils().includes(ust));
+
+    currentUstensils = ustensils;
+
+    renderUstensils(currentUstensils);
+}
+
 export function getCurrentIngredients() {
     return currentIngredients;
+}
+export function getCurrentUstensils() {
+    return currentUstensils;
+}
+export function getCurrentAppliances() {
+    return currentAppliances;
 }

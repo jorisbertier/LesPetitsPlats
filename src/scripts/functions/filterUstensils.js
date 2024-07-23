@@ -3,7 +3,7 @@ import { searchByTitle, filterBySelectedUstensils, filterBySelectedAppliances, f
 import { totalRecipes } from "./totalRecipes.js";
 import { RecipeCard } from "../templates/RecipeCard.js";
 import { addUstensil, removeUstensil, getSelectedIngredients, getSelectedUstensils, getSelectedAppliances } from "./filter.js";
-import { updateAvailableFilters } from "./updateAvailableFilters.js";
+import { updateAvailableFilters, updateAvailableUstensils, getCurrentUstensils} from "./updateAvailableFilters.js";
 
 let inputSearchUstensils = document.querySelector('.search__input--ustensils');
 let inputSearch = document.getElementById('recipe');
@@ -17,10 +17,21 @@ export async function displayUstensils() {
     allUstensils = await getAllUstensils();
 
     inputSearchUstensils.addEventListener('input', () => {
-        let allUstensilsFilterByValue = allUstensils.filter(ustensil =>
-            ustensil.toLowerCase().includes(inputSearchUstensils.value.toLowerCase())
-        );
-        renderUstensils(allUstensilsFilterByValue);
+        const currentUstensils = getCurrentUstensils();
+        const selectedUstensils = getSelectedUstensils();
+        const selectedIngredients = getSelectedIngredients();
+        
+        if (selectedUstensils.length !== 0 || selectedIngredients.length !== 0) {
+            let filteredUstensils = currentUstensils.filter(ustensil =>
+                ustensil.toLowerCase().includes(inputSearchUstensils.value.toLowerCase())
+            );
+            renderUstensils(filteredUstensils);
+        } else {
+            let allUstensilsFilterByValue = allUstensils.filter(ustensil =>
+                ustensil.toLowerCase().includes(inputSearchUstensils.value.toLowerCase())
+            );
+            renderUstensils(allUstensilsFilterByValue);
+        }
     });
 
     renderUstensils(allUstensils);
@@ -101,6 +112,7 @@ async function updateRecipes() {
     filteredRecipes = filterBySelectedAppliances(filteredRecipes, getSelectedAppliances());
 
     updateAvailableFilters(filteredRecipes);
+    updateAvailableUstensils(filteredRecipes)
 
     totalRecipes(filteredRecipes.length);
     renderRecipes(filteredRecipes);
