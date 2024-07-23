@@ -8,7 +8,7 @@ let currentIngredients = [];
 let currentUstensils = [];
 let currentAppliances = [];
 
-// Function to update available filters based on filtered recipes
+// Function to update available filters advanced ingredients/ ustensils/ applainces based on filtered recipes
 export async function updateAvailableFilters(filteredRecipes) {
     let ingredients = [];
     let ustensils = [];
