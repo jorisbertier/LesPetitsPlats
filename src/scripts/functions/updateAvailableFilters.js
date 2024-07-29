@@ -8,12 +8,13 @@ let currentIngredients = [];
 let currentUstensils = [];
 let currentAppliances = [];
 
-// Function to update available filters advanced ingredients/ ustensils/ applainces based on filtered recipes
+// Function to update available filters advanced ingredients/ ustensils/ appliances based on filtered recipes
 export async function updateAvailableFilters(filteredRecipes) {
     let ingredients = [];
     let ustensils = [];
     let appliances = [];
 
+    // extract & normalize 
     filteredRecipes.forEach(recipe => {
         recipe.ingredients.forEach(ing => {
             ingredients.push(ing.ingredient.trim().toLowerCase());
@@ -28,6 +29,7 @@ export async function updateAvailableFilters(filteredRecipes) {
     ustensils = [...new Set(ustensils)];
     appliances = [...new Set(appliances)];
 
+    // Filters lists to exclude ingredients, utensils and appliances already selected by the user
     ingredients = ingredients.filter(ing => !getSelectedIngredients().includes(ing));
     ustensils = ustensils.filter(ust => !getSelectedUstensils().includes(ust));
     appliances = appliances.filter(app => !getSelectedAppliances().includes(app));
@@ -41,6 +43,7 @@ export async function updateAvailableFilters(filteredRecipes) {
     renderAppliances(currentAppliances);
 }
 
+// Update only ingrdients availables by recipes filtered
 export function updateAvailableIngredients(filteredRecipes) {
     let ingredients = [];
 
